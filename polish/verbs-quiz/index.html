@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="Practise Polish verb tenses: see a verb and a person, pick the ending that completes it, then hear the whole form." />
+    <meta name="theme-color" content="#212529" />
+    <!-- Google Translate's speech audio refuses requests that name another site as referrer. -->
+    <meta name="referrer" content="no-referrer" />
+    <title>Polish Verb Tenses Quiz</title>
+    <link rel="icon" type="image/png" href="../../assets/img/icon.png" />
+    <link rel="manifest" href="../manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="../app/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Polski" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link href="../polish.css" rel="stylesheet" />
+    <link href="../letters-quiz.css" rel="stylesheet" />
+    <link href="verbs-quiz.css" rel="stylesheet" />
+    <script src="../../js/site-nav.js" defer></script>
+    <script src="../../js/share.js" defer></script>
+    <script src="../backup.js" defer></script>
+    <script src="../app.js" defer></script>
+</head>
+
+<body>
+    <main class="pl-app vq">
+        <h1 class="pl-title">Verb tenses quiz<span class="pl-title-alt"><span lang="pl" tabindex="0" title="Tap to hear">Test czasów</span><span lang="uk"> · Час дієслів</span></span></h1>
+        <nav class="pl-tabs pl-section-nav" data-page="verbs-quiz"></nav>
+        <p class="pl-muted pl-small">Each card shows a verb, who is doing it and when. The part of the word that stays
+            is printed, and you pick only the ending. <a href="../verbs/">How tenses are formed</a></p>
+
+        <div id="verbs-quiz">
+            <p id="vq-empty" class="pl-muted" hidden>The verb tables haven't loaded, so there is nothing to practise yet.</p>
+        </div>
+    </main>
+
+    <script src="../ratings.js"></script>
+    <script src="../pages.js"></script>
+    <script src="../common.js"></script>
+    <script src="../verbs/verbs-data.js"></script>
+    <script src="../verbs/verbs-translate.js"></script>
+    <script src="verbs-quiz-core.js"></script>
+    <script src="verbs-quiz.js"></script>
+</body>
+
+</html>

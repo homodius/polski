@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="Polish vocabulary with English and Ukrainian meanings, example sentences and audio." />
+    <meta name="theme-color" content="#212529" />
+    <!-- Google Translate's speech audio refuses requests that name another site as referrer. -->
+    <meta name="referrer" content="no-referrer" />
+    <title>Polish Words</title>
+    <link rel="icon" type="image/png" href="../../assets/img/icon.png" />
+    <link rel="manifest" href="../manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="../app/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Polski" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link href="../polish.css" rel="stylesheet" />
+    <script src="../../js/site-nav.js" defer></script>
+    <script src="../../js/share.js" defer></script>
+    <script src="../backup.js" defer></script>
+    <script src="../app.js" defer></script>
+</head>
+
+<body>
+    <main class="pl-app">
+        <h1 class="pl-title">Words<span class="pl-title-alt"><span lang="pl" tabindex="0" title="Tap to hear">Słowa</span><span lang="uk"> · Слова</span></span></h1>
+        <nav class="pl-tabs pl-section-nav" data-page="words"></nav>
+
+        <!-- Same menus on Words and Flashcards: topics (pick several), all words or only D's words, practice set -->
+        <div class="pl-filters pl-scope">
+            <div id="topic-picker" class="pl-topics">
+                <button id="topic-button" class="pl-input pl-topic-button" type="button" aria-haspopup="true"
+                    aria-expanded="false" aria-controls="topic-menu">All topics</button>
+                <div id="topic-menu" class="pl-topic-menu" role="group" aria-label="Topics" hidden>
+                    <button id="topic-clear" class="pl-link pl-small" type="button">All topics</button>
+                    <div id="topic-options"></div>
+                </div>
+            </div>
+            <select id="word-set" class="pl-input" aria-label="Which words">
+                <option value="all">All words</option>
+                <option value="mine">My words</option>
+            </select>
+            <select id="practice-set" class="pl-input" aria-label="Practice set: words you marked hard, normal or easy, or picked by hand"></select>
+        </div>
+
+        <!-- Vocabulary -->
+        <section id="pane-vocab" class="pl-pane">
+            <div class="pl-filters">
+                <input id="vocab-search" class="pl-input" type="search"
+                    placeholder="Search in Polish, English or Ukrainian" aria-label="Search words" />
+            </div>
+            <nav id="vocab-letters" class="pl-letters" aria-label="Jump to the first word with this letter"></nav>
+            <p id="vocab-count" class="pl-muted pl-small"></p>
+            <ul id="vocab-rows" class="pl-words"></ul>
+            <p id="vocab-empty" class="pl-muted" hidden>No words match.</p>
+        </section>
+    </main>
+
+    <script src="../srs.js"></script>
+    <script src="../ratings.js"></script>
+    <script src="../vocab.js"></script>
+    <script src="../examples.js"></script>
+    <script src="../pages.js"></script>
+    <script src="../common.js"></script>
+    <script src="../polish.js"></script>
+</body>
+
+</html>

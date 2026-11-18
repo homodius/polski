@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="Practise Polish case endings: see a noun in a sentence and pick the ending it needs." />
+    <meta name="theme-color" content="#212529" />
+    <!-- Google Translate's speech audio refuses requests that name another site as referrer. -->
+    <meta name="referrer" content="no-referrer" />
+    <title>Polish Case Endings Quiz</title>
+    <link rel="icon" type="image/png" href="../../assets/img/icon.png" />
+    <link rel="manifest" href="../manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="../app/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Polski" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link href="../polish.css" rel="stylesheet" />
+    <link href="../letters-quiz.css" rel="stylesheet" />
+    <link href="cases-quiz.css" rel="stylesheet" />
+    <script src="../../js/site-nav.js" defer></script>
+    <script src="../../js/share.js" defer></script>
+    <script src="../backup.js" defer></script>
+    <script src="../app.js" defer></script>
+</head>
+
+<body>
+    <main class="pl-app cq">
+        <h1 class="pl-title">Case endings quiz<span class="pl-title-alt"><span lang="pl" tabindex="0" title="Tap to hear">Test przypadków</span><span lang="uk"> · Відмінки</span></span></h1>
+        <nav class="pl-tabs pl-section-nav" data-page="cases-quiz"></nav>
+        <p class="pl-muted pl-small">Each card shows a word in a sentence with a gap. The part of the word that stays
+            is printed, and you pick only the ending the case adds. <a href="../cases/">Rules for each case</a></p>
+
+        <div class="pl-filters">
+            <select id="cq-case" class="pl-input" aria-label="Which case"></select>
+            <select id="cq-num" class="pl-input" aria-label="Singular or plural">
+                <option value="all">Singular and plural</option>
+                <option value="sg">Singular</option>
+                <option value="pl">Plural</option>
+            </select>
+            <select id="cq-set" class="pl-input" aria-label="Practice set: cards you marked hard, normal or easy, or picked by hand"></select>
+        </div>
+        <p id="cq-stats" class="pl-muted pl-small"></p>
+
+        <div id="cq-card" class="pl-card lq-card cq-card" aria-live="polite" hidden>
+            <p id="cq-case-label" class="pl-card-topic"></p>
+            <div id="cq-who"></div>
+            <div id="cq-rate"></div>
+            <p id="cq-word" class="cq-word"></p>
+            <p id="cq-front" class="pl-card-front cq-front" lang="pl" data-say="off"></p>
+            <div id="cq-context"></div>
+            <p id="cq-cue" class="cq-cue"></p>
+            <div id="cq-options" class="lq-options"></div>
+            <div id="cq-feedback" class="pl-card-back lq-feedback" hidden></div>
+            <button id="cq-next" class="pl-button pl-primary" type="button" hidden>Next</button>
+        </div>
+
+        <div id="cq-done" class="pl-card" hidden>
+            <p class="pl-card-front" lang="pl">Gotowe!</p>
+            <p id="cq-done-text" class="pl-muted"></p>
+            <button id="cq-retry" class="pl-button pl-primary" type="button">Practise the ones I missed</button>
+            <button id="cq-again" class="pl-link" type="button">New round</button>
+        </div>
+
+        <p class="pl-muted pl-small pl-keys">Keyboard: 1 to 4 pick an ending, Enter goes to the next card, S says the
+            sentence once you've answered.</p>
+    </main>
+
+    <script src="../ratings.js"></script>
+    <script src="../pages.js"></script>
+    <script src="../common.js"></script>
+    <script src="../quiz.js"></script>
+    <script src="cases-drill.js"></script>
+    <script src="drill.js"></script>
+    <script src="cases-quiz.js"></script>
+</body>
+
+</html>

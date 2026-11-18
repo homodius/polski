@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="How to form Polish verb tenses: present, past, future, conditional and imperative, with aspect pairs and conjugation tables. Tap any Polish word to hear it." />
+    <meta name="theme-color" content="#212529" />
+    <!-- Google Translate's speech audio refuses requests that name another site as referrer. -->
+    <meta name="referrer" content="no-referrer" />
+    <title>Polish Verb Tenses</title>
+    <link rel="icon" type="image/png" href="../../assets/img/icon.png" />
+    <link rel="manifest" href="../manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="../app/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Polski" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link href="../polish.css" rel="stylesheet" />
+    <link href="verbs.css" rel="stylesheet" />
+    <script src="../../js/site-nav.js" defer></script>
+    <script src="../../js/share.js" defer></script>
+    <script src="../backup.js" defer></script>
+    <script src="../app.js" defer></script>
+</head>
+
+<body>
+    <main class="pl-app vb-app">
+        <h1 class="pl-title">Verb tenses<span class="pl-title-alt"><span lang="pl" tabindex="0" title="Tap to hear">Czasy czasowników</span><span lang="uk"> · Часи дієслів</span></span></h1>
+        <nav class="pl-tabs pl-section-nav" data-page="verbs"></nav>
+        <p class="pl-muted pl-small">Tap any Polish word or sentence to hear it. In the tables the part that stays the same is plain
+            and the <b class="vb-end">ending</b> that changes is coloured.</p>
+
+        <nav class="vb-toc" aria-label="On this page">
+            <a href="#overview">Overview</a>
+            <a href="#present">Present</a>
+            <a href="#past">Past</a>
+            <a href="#aspect">Aspect</a>
+            <a href="#future">Future</a>
+            <a href="#conditional">Conditional</a>
+            <a href="#imperative">Imperative</a>
+            <a href="#tables">All verbs</a>
+        </nav>
+
+        <!-- Overview -->
+        <section id="overview" class="vb-section">
+            <h2>Overview</h2>
+            <p>Polish has only three tenses: present, past and future. Instead of many tenses it has
+                <a href="#aspect">aspect</a><span lang="uk">, exactly like Ukrainian</span>: most verbs come in pairs, one for an action in
+                progress or repeated (<span lang="pl">robić</span><span lang="uk">, робити</span>) and one for a finished, single action
+                (<span lang="pl">zrobić</span><span lang="uk">, зробити</span>).</p>
+            <div class="vb-scroll">
+                <table class="vb-table vb-summary">
+                    <thead>
+                        <tr><th>Form</th><th>How it is built</th><th>Example</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><a href="#present">Present</a></td><td>stem + person ending</td>
+                            <td><span lang="pl">robię</span> I do</td></tr>
+                        <tr><td><a href="#past">Past</a></td><td>stem + ł + gender + person ending</td>
+                            <td><span lang="pl">robiłem</span> / <span lang="pl">robiłam</span> I did</td></tr>
+                        <tr><td><a href="#future">Future, perfective</a></td><td>present-type endings on a perfective verb</td>
+                            <td><span lang="pl">zrobię</span> I will do</td></tr>
+                        <tr><td><a href="#future">Future, imperfective</a></td><td><span lang="pl">będę</span> + infinitive or past form</td>
+                            <td><span lang="pl">będę robić</span> I will be doing</td></tr>
+                        <tr><td><a href="#conditional">Conditional</a></td><td>past form + by + person ending</td>
+                            <td><span lang="pl">robiłbym</span> I would do</td></tr>
+                        <tr><td><a href="#imperative">Imperative</a></td><td>present stem, + my, + cie</td>
+                            <td><span lang="pl">rób</span>, <span lang="pl">róbmy</span>, <span lang="pl">róbcie</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <h3>The six persons</h3>
+            <p>The ending already says who does it, so the pronoun is usually left out<span lang="uk">, as in Ukrainian</span>:
+                <span lang="pl">Robię to.</span> means "I'm doing it"<span lang="uk">, like Роблю це</span>.</p>
+            <div id="persons" class="vb-scroll"></div>
+            <p class="vb-tip"><b>Polite "you".</b> To a stranger Poles say <span lang="pl">Pan</span> (to a man),
+                <span lang="pl">Pani</span> (to a woman) or <span lang="pl">Państwo</span> (to a group) with the
+                3rd person verb, not <span lang="pl">ty</span> or <span lang="pl">wy</span>:
+                <span lang="pl">Czy Pan mówi po angielsku?</span> Do you speak English?<span lang="uk"> Ukrainian uses ви instead.</span></p>
+        </section>
+
+        <!-- Present -->
+        <section id="present" class="vb-section">
+            <h2>Present <span class="vb-h-alt" lang="pl">czas teraźniejszy</span></h2>
+            <p>Only imperfective verbs have a present tense. Every verb follows one of three patterns. The
+                <span lang="pl">ty</span> form tells you which one: <span lang="pl">czytasz</span> (-asz),
+                <span lang="pl">robisz</span> (-isz), <span lang="pl">piszesz</span> (-esz). The
+                <span lang="pl">oni</span> form ends in a nasal <b class="vb-end">-ą</b> (-ją), said like a nasal “om” / “on” at
+                the end of a word<span lang="uk">, like Ukrainian -ом / -он</span>.</p>
+            <div class="vb-compare" data-verbs="czytac,robic,pisac" data-tense="present"></div>
+            <ul id="groups" class="vb-groups"></ul>
+            <p class="vb-tip pl-uk-only"><b>Like Ukrainian.</b> <span lang="pl">robisz, robi, robimy, robicie</span> match робиш,
+                робить, робимо, робите almost sound for sound. Polish <span lang="pl">sz</span> in -sz is the ш of
+                -ш, and <span lang="pl">ę</span> in <span lang="pl">robię</span> plays the part of -ю in роблю.</p>
+            <h3>The verbs you need most</h3>
+            <p>These four are irregular, and you will use them all the time.</p>
+            <div class="vb-compare" data-verbs="byc,miec,jesc,wiedziec" data-tense="present"></div>
+            <h3>Examples</h3>
+            <ul class="vb-examples">
+                <li><span lang="pl">Czytam książkę.</span><span>I'm reading a book.</span><span lang="uk">Я читаю книжку.</span></li>
+                <li><span lang="pl">Co robisz wieczorem?</span><span>What are you doing in the evening?</span><span lang="uk">Що робиш увечері?</span></li>
+                <li><span lang="pl">Szukam kluczy.</span><span>I'm looking for the keys.</span><span lang="uk">Я шукаю ключі.</span></li>
+                <li><span lang="pl">Mieszkamy w Krakowie.</span><span>We live in Kraków.</span><span lang="uk">Ми живемо в Кракові.</span></li>
+                <li><span lang="pl">Oni piszą list.</span><span>They are writing a letter.</span><span lang="uk">Вони пишуть листа.</span></li>
+            </ul>
+        </section>
+
+        <!-- Past -->
+        <section id="past" class="vb-section">
+            <h2>Past <span class="vb-h-alt" lang="pl">czas przeszły</span></h2>
+            <p>Take the infinitive, drop <b>-ć</b>, add <b class="vb-end">ł</b>, then an ending that shows the gender and the
+                person: <span lang="pl">robić</span> → <span lang="pl">robi-</span> → <span lang="pl">robiłem</span>
+                (a man says it), <span lang="pl">robiłam</span> (a woman says it).</p>
+            <div class="vb-scroll">
+                <table class="vb-table vb-endings">
+                    <thead>
+                        <tr><th></th><th>masculine</th><th>feminine</th><th>neuter</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><th><span lang="pl">ja</span></th><td>-<b class="vb-end">łem</b></td><td>-<b class="vb-end">łam</b></td><td></td></tr>
+                        <tr><th><span lang="pl">ty</span></th><td>-<b class="vb-end">łeś</b></td><td>-<b class="vb-end">łaś</b></td><td></td></tr>
+                        <tr><th><span lang="pl">on / ona / ono</span></th><td>-<b class="vb-end">ł</b></td><td>-<b class="vb-end">ła</b></td><td>-<b class="vb-end">ło</b></td></tr>
+                        <tr class="vb-subhead"><th></th><th>men or mixed</th><th>women, things</th><th></th></tr>
+                        <tr><th><span lang="pl">my</span></th><td>-<b class="vb-end">liśmy</b></td><td>-<b class="vb-end">łyśmy</b></td><td></td></tr>
+                        <tr><th><span lang="pl">wy</span></th><td>-<b class="vb-end">liście</b></td><td>-<b class="vb-end">łyście</b></td><td></td></tr>
+                        <tr><th><span lang="pl">oni / one</span></th><td>-<b class="vb-end">li</b></td><td>-<b class="vb-end">ły</b></td><td></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="vb-verb-table" data-verb="robic" data-tense="past"></div>
+            <p class="vb-tip pl-uk-only"><b>Like Ukrainian.</b> The core is the same l-form: <span lang="pl">robił</span> робив,
+                <span lang="pl">robiła</span> робила, <span lang="pl">robiło</span> робило, <span lang="pl">robili</span>
+                робили. Polish <span lang="pl">ł</span> is said like English w, so <span lang="pl">robił</span> even
+                sounds like робив. What Polish adds is the person ending: Ukrainian says я робив, Polish says
+                <span lang="pl">robiłem</span>.</p>
+            <p><b>Men or mixed vs. women and things.</b> In the plural, <span lang="pl">oni</span> (-li) is used for any
+                group with at least one man; <span lang="pl">one</span> (-ły) is for women, children, animals and
+                things: <span lang="pl">Chłopcy grali.</span> The boys played. <span lang="pl">Dziewczyny grały.</span>
+                The girls played.</p>
+            <h3>Stems that change</h3>
+            <p>Verbs in -eć turn a into e in the men-or-mixed plural, and a few common verbs change more:</p>
+            <ul class="vb-chips">
+                <li><span lang="pl">mieć</span> → <span lang="pl">miał</span>, <span lang="pl">mieli</span></li>
+                <li><span lang="pl">chcieć</span> → <span lang="pl">chciał</span>, <span lang="pl">chcieli</span></li>
+                <li><span lang="pl">widzieć</span> → <span lang="pl">widział</span>, <span lang="pl">widzieli</span></li>
+                <li><span lang="pl">jeść</span> → <span lang="pl">jadł</span>, <span lang="pl">jedli</span></li>
+                <li><span lang="pl">iść</span> → <span lang="pl">szedł</span>, <span lang="pl">szła</span>, <span lang="pl">szli</span></li>
+                <li><span lang="pl">móc</span> → <span lang="pl">mógł</span>, <span lang="pl">mogła</span>, <span lang="pl">mogli</span></li>
+                <li><span lang="pl">wziąć</span> → <span lang="pl">wziął</span>, <span lang="pl">wzięła</span>, <span lang="pl">wzięli</span></li>
+            </ul>
+            <h3>Examples</h3>
+            <ul class="vb-examples">
+                <li><span lang="pl">Wczoraj pracowałem do wieczora.</span><span>Yesterday I (a man) worked until the evening.</span><span lang="uk">Учора я працював до вечора.</span></li>
+                <li><span lang="pl">Gdzie byłaś?</span><span>Where were you (to a woman)?</span><span lang="uk">Де ти була?</span></li>
+                <li><span lang="pl">Kupiliśmy nowy samochód.</span><span>We bought a new car.</span><span lang="uk">Ми купили нову машину.</span></li>
+                <li><span lang="pl">Dzieci spały.</span><span>The children were sleeping.</span><span lang="uk">Діти спали.</span></li>
+            </ul>
+        </section>
+
+        <!-- Aspect -->
+        <section id="aspect" class="vb-section">
+            <h2>Aspect <span class="vb-h-alt" lang="pl">aspekt</span></h2>
+            <p><span lang="uk">This works just as in Ukrainian. </span>The <b>imperfective</b> verb (<span lang="pl">niedokonany</span>) is for a
+                process, a habit or a repeated action: <span lang="pl">Czytałem książkę.</span> I was reading a book.
+                The <b>perfective</b> verb (<span lang="pl">dokonany</span>) is for one action seen as finished or with a
+                result: <span lang="pl">Przeczytałem książkę.</span> I read the book (to the end).</p>
+            <ul class="vb-list">
+                <li>Most pairs add a prefix: <span lang="pl">z-</span>, <span lang="pl">prze-</span>,
+                    <span lang="pl">na-</span>, <span lang="pl">po-</span>, <span lang="pl">wy-</span>: <span lang="pl">robić</span> → <span lang="pl">zrobić</span>,
+                    <span lang="pl">pisać</span> → <span lang="pl">napisać</span>, <span lang="pl">pić</span> → <span lang="pl">wypić</span>.</li>
+                <li>Some change the suffix: <span lang="pl">kupować</span> → <span lang="pl">kupić</span>,
+                    <span lang="pl">dawać</span> → <span lang="pl">dać</span><span lang="uk"> (купувати → купити)</span>.</li>
+                <li>A few are different words: <span lang="pl">brać</span> → <span lang="pl">wziąć</span><span lang="uk"> (брати → взяти)</span>,
+                    <span lang="pl">mówić</span> → <span lang="pl">powiedzieć</span><span lang="uk"> (говорити → сказати)</span>.</li>
+                <li>A perfective verb has no present tense. Its present-type forms mean the future:
+                    <span lang="pl">zrobię</span> I will do<span lang="uk"> (зроблю)</span>.</li>
+            </ul>
+            <div id="pairs" class="vb-scroll"></div>
+        </section>
+
+        <!-- Future -->
+        <section id="future" class="vb-section">
+            <h2>Future <span class="vb-h-alt" lang="pl">czas przyszły</span></h2>
+            <h3>Perfective verbs: one word</h3>
+            <p>Conjugate the perfective verb like a present tense. The result is the future: one action that will be done.</p>
+            <div class="vb-compare" data-verbs="zrobic,przeczytac,napisac" data-tense="future"></div>
+            <h3>Imperfective verbs: <span lang="pl">będę</span> + verb</h3>
+            <p>Use the future of <span lang="pl">być</span> with either the infinitive or the past l-form. Both mean the
+                same: <span lang="pl">będę robić</span> = <span lang="pl">będę robił</span> (a man) /
+                <span lang="pl">będę robiła</span> (a woman). The infinitive is easier, since it does not change.</p>
+            <div class="vb-verb-table" data-verb="byc" data-tense="future"></div>
+            <div class="vb-verb-table" data-verb="robic" data-tense="future"></div>
+            <p class="vb-tip pl-uk-only"><b>Like Ukrainian.</b> <span lang="pl">będę robić</span> is буду робити word for word. Polish
+                has no one-word form like робитиму.</p>
+            <h3>Examples</h3>
+            <ul class="vb-examples">
+                <li><span lang="pl">Jutro to zrobię.</span><span>I'll do it tomorrow.</span><span lang="uk">Завтра я це зроблю.</span></li>
+                <li><span lang="pl">Będę czekać na ciebie.</span><span>I'll be waiting for you.</span><span lang="uk">Я чекатиму на тебе.</span></li>
+                <li><span lang="pl">Gdzie będziecie mieszkać?</span><span>Where will you live?</span><span lang="uk">Де ви житимете?</span></li>
+                <li><span lang="pl">Pojedziemy nad morze.</span><span>We'll go to the seaside.</span><span lang="uk">Ми поїдемо на море.</span></li>
+            </ul>
+        </section>
+
+        <!-- Conditional -->
+        <section id="conditional" class="vb-section">
+            <h2>Conditional <span class="vb-h-alt" lang="pl">tryb przypuszczający</span></h2>
+            <p>Take the past l-form (<span lang="pl">chciał</span>, <span lang="pl">chciała</span>,
+                <span lang="pl">chcieli</span>) and add <b class="vb-end">by</b> with the person ending:
+                <b class="vb-end">-bym</b>, <b class="vb-end">-byś</b>, <b class="vb-end">-by</b>,
+                <b class="vb-end">-byśmy</b>, <b class="vb-end">-byście</b>, <b class="vb-end">-by</b>.
+                The most useful one is <span lang="pl">chciałbym</span> / <span lang="pl">chciałabym</span>, "I'd like",
+                and <span lang="pl">Chciałbyś?</span> "Would you like?".</p>
+            <div class="vb-verb-table" data-verb="chciec" data-tense="conditional"></div>
+            <p class="vb-tip pl-uk-only"><b>Like Ukrainian.</b> Ukrainian says я хотів би, Polish joins the pieces into one word:
+                <span lang="pl">chciałbym</span>. In "if" sentences the by moves onto
+                <span lang="pl">gdy</span>: <span lang="pl">Gdybym miał czas, poszedłbym z tobą.</span> If I had
+                time, I'd go with you<span lang="uk"> (Якби я мав час, я пішов би з тобою)</span>.</p>
+            <h3>Examples</h3>
+            <ul class="vb-examples">
+                <li><span lang="pl">Chciałbym kawę, proszę.</span><span>I'd like a coffee, please (a man).</span><span lang="uk">Я хотів би каву, будь ласка.</span></li>
+                <li><span lang="pl">Chciałabyś pójść do kina?</span><span>Would you like to go to the cinema (to a woman)?</span><span lang="uk">Ти хотіла б піти в кіно?</span></li>
+                <li><span lang="pl">Czy mógłbyś mi pomóc?</span><span>Could you help me (to a man)?</span><span lang="uk">Ти міг би мені допомогти?</span></li>
+                <li><span lang="pl">Na twoim miejscu kupiłabym to.</span><span>In your place I'd buy it (a woman).</span><span lang="uk">На твоєму місці я б це купила.</span></li>
+            </ul>
+        </section>
+
+        <!-- Imperative -->
+        <section id="imperative" class="vb-section">
+            <h2>Imperative <span class="vb-h-alt" lang="pl">tryb rozkazujący</span></h2>
+            <p>Start from the <span lang="pl">oni</span> form of the present (or of the perfective future) and drop
+                its ending: <span lang="pl">czytają</span> → <span lang="pl">czytaj</span>,
+                <span lang="pl">piszą</span> → <span lang="pl">pisz</span>, <span lang="pl">robią</span> →
+                <span lang="pl">rób</span> (o often becomes ó). That is the <span lang="pl">ty</span> form. Add
+                <b class="vb-end">-my</b> for "let's" and <b class="vb-end">-cie</b> for <span lang="pl">wy</span>.</p>
+            <div class="vb-compare" data-verbs="czytac,pisac,robic,zrobic" data-tense="imperative"></div>
+            <p>Irregular but common: <span lang="pl">bądź</span> (be), <span lang="pl">miej</span> (have),
+                <span lang="pl">jedz</span> (eat), <span lang="pl">idź</span> (go), <span lang="pl">weź</span> (take),
+                <span lang="pl">daj</span> (give), <span lang="pl">powiedz</span> (say).</p>
+            <ul class="vb-list">
+                <li>For "don't" use the imperfective: <span lang="pl">Nie rób tego!</span> Don't do that!<span lang="uk"> (Не роби цього!)</span></li>
+                <li>For him, her, them or polite <span lang="pl">Pan</span> / <span lang="pl">Pani</span>, use
+                    <span lang="pl">niech</span> + 3rd person: <span lang="pl">Niech Pan usiądzie.</span> Please sit down<span lang="uk">
+                    (Нехай пан сяде)</span>.</li>
+            </ul>
+            <p class="vb-tip pl-uk-only"><b>Like Ukrainian.</b> <span lang="pl">rób</span>, <span lang="pl">róbmy</span>,
+                <span lang="pl">róbcie</span> follow роби, робімо, робіть.</p>
+            <h3>Examples</h3>
+            <ul class="vb-examples">
+                <li><span lang="pl">Daj się przytulić.</span><span>Let me hug you.</span><span lang="uk">Дай себе обійняти.</span></li>
+                <li><span lang="pl">Poczekaj chwilę!</span><span>Wait a moment!</span><span lang="uk">Почекай хвилинку!</span></li>
+                <li><span lang="pl">Chodźmy na spacer.</span><span>Let's go for a walk.</span><span lang="uk">Ходімо на прогулянку.</span></li>
+                <li><span lang="pl">Mówcie wolniej, proszę.</span><span>Speak more slowly, please (to several people).</span><span lang="uk">Говоріть повільніше, будь ласка.</span></li>
+            </ul>
+        </section>
+
+        <!-- Every verb, every tense -->
+        <section id="tables" class="vb-section">
+            <h2>All verbs <span class="vb-h-alt" lang="pl">odmiana czasowników</span></h2>
+            <div class="pl-filters">
+                <select id="verb-pick" class="pl-input" aria-label="Verb"></select>
+            </div>
+            <div id="verb-tables"></div>
+        </section>
+    </main>
+
+    <script src="../pages.js"></script>
+    <script src="../common.js"></script>
+    <script src="verbs-speech.js"></script>
+    <script src="verbs-data.js"></script>
+    <script src="verbs-page.js"></script>
+</body>
+
+</html>

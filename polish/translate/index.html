@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="Write a sentence in English and in Polish, then compare your Polish with a translator's." />
+    <meta name="theme-color" content="#212529" />
+    <!-- Google Translate's speech audio refuses requests that name another site as referrer. -->
+    <meta name="referrer" content="no-referrer" />
+    <title>Polish Translation Practice</title>
+    <link rel="icon" type="image/png" href="../../assets/img/icon.png" />
+    <link rel="manifest" href="../manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="../app/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Polski" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link href="../polish.css" rel="stylesheet" />
+    <link href="../translate.css" rel="stylesheet" />
+    <script src="../../js/site-nav.js" defer></script>
+    <script src="../../js/share.js" defer></script>
+    <script src="../backup.js" defer></script>
+    <script src="../app.js" defer></script>
+</head>
+
+<body>
+    <main class="pl-app">
+        <h1 class="pl-title">Translate<span class="pl-title-alt"><span lang="pl" tabindex="0" title="Tap to hear">Tłumaczenie</span><span lang="uk"> · Переклад</span></span></h1>
+        <nav class="pl-tabs pl-section-nav" data-page="translate"></nav>
+
+        <p class="pl-muted pl-small">Write a sentence, then your own Polish for it. Compare asks a free online
+            translator for its Polish, marks where yours differs and says what yours means back in English. A
+            translator gives one way to say it: another word or order can be just as right.</p>
+
+        <form id="tr-form" class="tr-form" autocomplete="off">
+            <div class="tr-field">
+                <div class="tr-field-head">
+                    <label for="tr-source">The sentence</label>
+                    <select id="tr-from" class="pl-input" aria-label="Language of the sentence">
+                        <option value="en">in English</option>
+                        <option value="uk">in Ukrainian</option>
+                    </select>
+                </div>
+                <textarea id="tr-source" class="pl-input" lang="en" rows="2" placeholder="I would like a coffee, please."></textarea>
+            </div>
+            <div class="tr-field">
+                <div class="tr-field-head">
+                    <label for="tr-mine">Your Polish</label>
+                    <span id="tr-mine-say"></span>
+                </div>
+                <textarea id="tr-mine" class="pl-input" lang="pl" rows="2" spellcheck="false" placeholder="Poproszę kawę."></textarea>
+            </div>
+            <div class="tr-actions">
+                <button id="tr-go" class="pl-button pl-primary" type="submit">Compare</button>
+                <button id="tr-clear" class="pl-link" type="button">Clear</button>
+                <span class="pl-muted pl-small">Ctrl or ⌘ + Enter compares.</span>
+            </div>
+        </form>
+
+        <section id="tr-result" class="tr-result pl-card" aria-live="polite" hidden></section>
+
+        <section id="tr-history" class="tr-history" hidden>
+            <h2>Your sentences</h2>
+            <ul id="tr-history-list"></ul>
+            <button id="tr-history-clear" class="pl-link" type="button">Clear the list</button>
+        </section>
+    </main>
+
+    <script src="../pages.js"></script>
+    <script src="../common.js"></script>
+    <script src="../translator.js"></script>
+    <script src="translate.js"></script>
+</body>
+
+</html>

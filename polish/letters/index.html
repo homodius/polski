@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="How to say each Polish letter and letter combination, with a quiz." />
+    <meta name="theme-color" content="#212529" />
+    <!-- Google Translate's speech audio refuses requests that name another site as referrer. -->
+    <meta name="referrer" content="no-referrer" />
+    <title>Polish Letters</title>
+    <link rel="icon" type="image/png" href="../../assets/img/icon.png" />
+    <link rel="manifest" href="../manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="../app/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Polski" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link href="../polish.css" rel="stylesheet" />
+    <link href="../letters-quiz.css" rel="stylesheet" />
+    <script src="../../js/site-nav.js" defer></script>
+    <script src="../../js/share.js" defer></script>
+    <script src="../backup.js" defer></script>
+    <script src="../app.js" defer></script>
+</head>
+
+<body>
+    <main class="pl-app">
+        <h1 class="pl-title">Letters<span class="pl-title-alt"><span lang="pl" tabindex="0" title="Tap to hear">Litery</span><span lang="uk"> · Літери</span></span></h1>
+        <nav class="pl-tabs pl-section-nav" data-page="letters"></nav>
+
+        <!-- How to say each letter and letter combination; at #quiz letters-quiz.js shows its quiz instead -->
+        <section id="pane-letters" class="pl-pane">
+            <div class="pl-filters">
+                <input id="letters-search" class="pl-input" type="search"
+                    placeholder="Search letters, sounds or words" aria-label="Search letters" />
+                <select id="letters-group" class="pl-input" aria-label="Which letters">
+                    <option value="all">All letters and combinations</option>
+                    <option value="special">Polish letters (ą ć ę ł ń ó ś ź ż)</option>
+                    <option value="exceptions">With special cases ⚠</option>
+                    <option value="soft">Soft, like ь</option>
+                    <option value="vowel">Vowels</option>
+                    <option value="consonant">Consonants</option>
+                    <option value="combination">Combinations</option>
+                </select>
+            </div>
+            <p class="pl-muted pl-small">Stress is almost always on the second-to-last syllable: <span lang="pl" class="pl-say-inline" data-say="kobieta" tabindex="0" title="Tap to hear">ko-BIE-ta</span>,
+                <span lang="pl" class="pl-say-inline" data-say="dziękuję" tabindex="0" title="Tap to hear">dzię-KU-ję</span>.
+                Tap a speaker, or any Polish word, to hear it.</p>
+            <p id="letters-count" class="pl-muted pl-small"></p>
+            <ul id="letters-rows" class="pl-words"></ul>
+            <p id="letters-empty" class="pl-muted" hidden>Nothing matches.</p>
+        </section>
+    </main>
+
+    <script src="../ratings.js"></script>
+    <script src="../letters.js"></script>
+    <script src="../pages.js"></script>
+    <script src="../common.js"></script>
+    <script src="../letters-page.js"></script>
+    <script src="../quiz.js"></script>
+    <script src="../letters-quiz.js"></script>
+</body>
+
+</html>

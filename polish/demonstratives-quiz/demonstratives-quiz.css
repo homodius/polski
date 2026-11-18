@@ -1,0 +1,15 @@
+/* This and that quiz. Builds on letters-quiz.css and cases-quiz/cases-quiz.css. */
+.dq .dq-meaning {
+  flex-basis: 100%;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* Forms like "tego samego" are longer than an ending. */
+.dq .cq-card .pl-card-front {
+  font-size: 2.2rem;
+}
+
+.dq .cq-option-text {
+  font-size: 1.15rem;
+}

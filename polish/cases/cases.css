@@ -1,0 +1,322 @@
+/* Cases rules page */
+:root {
+  --cs-end: #c2410c;
+  --cs-end-soft: #fff1e6;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --cs-end: #fb923c;
+    --cs-end-soft: #3a2414;
+  }
+}
+
+.cs-intro {
+  margin: 16px 0 12px;
+}
+
+/* Endings: the changing part of a word */
+.cs-end {
+  color: var(--cs-end);
+  font-weight: 700;
+  background: var(--cs-end-soft);
+  border-radius: 4px;
+  padding: 0 1px;
+}
+
+.cs-zero {
+  font-weight: 400;
+  font-size: 0.8em;
+  padding: 0 3px;
+}
+
+/* Tappable Polish */
+.cs-say,
+.cs-word {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  text-align: inherit;
+  touch-action: manipulation;
+}
+
+.cs-say {
+  text-decoration: underline dotted var(--pl-accent);
+  text-underline-offset: 3px;
+}
+
+.cs-word {
+  padding: 2px 4px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+@media (hover: hover) {
+  .cs-say:hover {
+    color: var(--pl-accent);
+  }
+
+  .cs-word:hover {
+    background: var(--pl-accent-soft);
+  }
+}
+
+.cs-say:focus-visible,
+.cs-word:focus-visible {
+  outline: 2px solid var(--pl-accent);
+  outline-offset: 1px;
+  border-radius: 4px;
+}
+
+.cs-strong {
+  font-weight: 700;
+}
+
+.cs-q {
+  font-style: italic;
+}
+
+.cs-tiny {
+  font-size: 0.75rem;
+}
+
+.cs-or {
+  color: var(--pl-muted);
+}
+
+/* Contents */
+.cs-contents {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 20px;
+}
+
+.cs-chip {
+  padding: 4px 10px;
+  font-size: 0.85rem;
+  color: var(--pl-accent);
+  background: var(--pl-accent-soft);
+  border-radius: 999px;
+  text-decoration: none;
+}
+
+.cs-chip:hover {
+  text-decoration: underline;
+}
+
+/* Sections and cards */
+.cs-section,
+.cs-case {
+  margin: 0 0 24px;
+  scroll-margin-top: 12px;
+}
+
+.cs-section-title {
+  font-size: 1.25rem;
+  margin: 0 0 10px;
+}
+
+.cs-card {
+  padding: 14px 16px;
+  background: var(--pl-card);
+  border: 1px solid var(--pl-border);
+  border-radius: 12px;
+}
+
+.cs-genders {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.cs-gender p {
+  margin: 0;
+}
+
+.cs-text {
+  margin-top: 4px !important;
+  font-size: 0.95rem;
+}
+
+.cs-case-head {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px;
+  align-items: center;
+}
+
+.cs-case-num {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #fff;
+  background: var(--pl-accent);
+  border-radius: 50%;
+}
+
+.cs-case-name {
+  margin: 0;
+  font-size: 1.3rem;
+  line-height: 1.2;
+}
+
+.cs-case-sub {
+  margin: 2px 0 0;
+  font-size: 0.85rem;
+}
+
+.cs-case-q {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--pl-accent);
+  white-space: nowrap;
+}
+
+.cs-h {
+  margin: 14px 0 4px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--pl-muted);
+}
+
+.cs-list {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.cs-list li + li {
+  margin-top: 2px;
+}
+
+.cs-preps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+}
+
+.cs-prep {
+  font-size: 0.95rem;
+}
+
+.cs-example {
+  margin-top: 8px;
+}
+
+.cs-mark {
+  font-weight: 700;
+  font-style: normal;
+}
+
+.cs-uk-note {
+  margin: 14px 0 0;
+  padding: 8px 10px;
+  font-size: 0.9rem;
+  background: var(--pl-bg);
+  border-radius: 8px;
+}
+
+/* Tables */
+.cs-table-wrap {
+  overflow-x: auto;
+  background: var(--pl-card);
+  border: 1px solid var(--pl-border);
+  border-radius: 12px;
+}
+
+.cs-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+}
+
+.cs-table th,
+.cs-table td {
+  padding: 6px 8px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--pl-border);
+}
+
+.cs-table tr:last-child th,
+.cs-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.cs-table thead th {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--pl-muted);
+  white-space: nowrap;
+}
+
+.cs-table a {
+  color: var(--pl-accent);
+}
+
+.cs-case-cell {
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.cs-overview td {
+  font-size: 0.95rem;
+}
+
+.cs-case-link {
+  text-decoration: none;
+}
+
+.cs-pronouns td {
+  white-space: nowrap;
+}
+
+.cs-table-info {
+  margin: 0 0 8px;
+}
+
+.cs-gender-tag {
+  margin-left: 8px;
+}
+
+.cs-note {
+  margin: 8px 0 0;
+  font-size: 0.9rem;
+  color: var(--pl-muted);
+}
+
+.cs-note .cs-say {
+  color: var(--pl-text);
+}
+
+@media (max-width: 480px) {
+  .cs-card {
+    padding: 12px;
+  }
+
+  .cs-table th,
+  .cs-table td {
+    padding: 5px 5px;
+  }
+
+  .cs-word {
+    padding: 2px 2px;
+  }
+}
+
+.cs-section select.pl-input {
+  width: 100%;
+  max-width: 100%;
+}

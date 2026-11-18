@@ -1,0 +1,109 @@
+/* This and that (demonstratives) Learn page. Builds on polish.css and cases/cases.css. */
+.dm-pair {
+  white-space: nowrap;
+}
+
+.dm-pair [lang="uk"],
+.dm-uk {
+  color: var(--pl-muted);
+}
+
+.dm-uk {
+  display: block;
+  font-size: 0.75rem;
+  padding: 0 4px;
+  white-space: nowrap;
+}
+
+.dm-table td {
+  white-space: nowrap;
+}
+
+.dm-cheat-form {
+  white-space: nowrap;
+}
+
+.dm-big {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--cs-end);
+}
+
+.dm-cheat td {
+  font-size: 0.92rem;
+}
+
+.dm-uk-cell {
+  white-space: nowrap;
+  color: var(--pl-muted);
+}
+
+.dm-word-intro {
+  margin: 0 0 10px;
+}
+
+.dm-examples {
+  margin-top: 10px;
+}
+
+.dm-examples summary {
+  cursor: pointer;
+  color: var(--pl-accent);
+  font-weight: 600;
+}
+
+.dm-ex-list {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.dm-ex {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.dm-ex .pl-speak {
+  flex: none;
+}
+
+.dm-ex-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.dm-ex-pl strong {
+  font-weight: 600;
+}
+
+.dm-tricky {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.dm-tricky-item p {
+  margin: 0;
+}
+
+.dm-tricky-item p + p {
+  margin-top: 4px;
+}
+
+.dm-quiz-link {
+  color: var(--pl-accent);
+  font-weight: 600;
+}
+
+@media (max-width: 480px) {
+  .dm-cheat th,
+  .dm-cheat td {
+    padding: 5px 6px;
+  }
+}

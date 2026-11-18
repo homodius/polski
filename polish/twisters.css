@@ -1,0 +1,37 @@
+/* Tongue twisters page (twisters-page.js) */
+.pl-twister-pl {
+  font-size: 1.15rem;
+  line-height: 1.45;
+  overflow-wrap: anywhere; /* Konstantynopolitańczykowianeczka */
+}
+
+.pl-twister-row .pl-word-meaning {
+  font-size: 0.95rem;
+}
+
+/* A tricky sound in the text: coloured, and a link to its entry on the Letters page */
+.pl-word a.pl-twister-mark {
+  color: var(--pl-accent);
+  text-decoration: none;
+  border-bottom: 2px dotted var(--pl-accent);
+}
+
+.pl-word a.pl-twister-mark:hover,
+.pl-word a.pl-twister-mark:focus-visible {
+  background: var(--pl-accent-soft);
+  border-bottom-style: solid;
+}
+
+.pl-twister-sounds a.pl-twister-mark {
+  font-weight: 700;
+}
+
+.pl-speak-slow svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Let long lines wrap on phones instead of widening the row past the screen */
+.pl-twister-row {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+}

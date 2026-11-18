@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="Polish ten, ta, to, tamten, ten sam and taki in every case: full tables, the usual mistakes and example sentences, with audio." />
+    <meta name="theme-color" content="#212529" />
+    <!-- Google Translate's speech audio refuses requests that name another site as referrer. -->
+    <meta name="referrer" content="no-referrer" />
+    <title>Polish This and That</title>
+    <link rel="icon" type="image/png" href="../../assets/img/icon.png" />
+    <link rel="manifest" href="../manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="../app/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Polski" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link href="../polish.css" rel="stylesheet" />
+    <link href="../cases/cases.css" rel="stylesheet" />
+    <link href="demonstratives.css" rel="stylesheet" />
+    <script src="../../js/site-nav.js" defer></script>
+    <script src="../../js/share.js" defer></script>
+    <script src="../backup.js" defer></script>
+    <script src="../app.js" defer></script>
+</head>
+
+<body>
+    <main class="pl-app dm">
+        <h1 class="pl-title">This and that<span class="pl-title-alt"><span lang="pl" tabindex="0" title="Tap to hear">Ten, ta, to</span><span lang="uk"> · Цей, той</span></span></h1>
+        <nav class="pl-tabs pl-section-nav" data-page="demonstratives"></nav>
+
+        <p class="cs-intro">The words for this and that change with gender, number and case<span lang="uk">, just like Ukrainian
+            цей and той, and their endings are nearly the same</span>: <span class="dm-pair"><span lang="pl">tego</span><span lang="uk"> · того</span></span>,
+            <span class="dm-pair"><span lang="pl">temu</span><span lang="uk"> · тому</span></span>,
+            <span class="dm-pair"><span lang="pl">tym</span><span lang="uk"> · тим</span></span>,
+            <span class="dm-pair"><span lang="pl">tych</span><span lang="uk"> · тих</span></span>,
+            <span class="dm-pair"><span lang="pl">tymi</span><span lang="uk"> · тими</span></span>. In the tables the
+            part that stays is plain and the <span class="cs-end">ending</span> is coloured. Tap any Polish word to hear it.</p>
+
+        <nav id="dm-contents" class="cs-contents" aria-label="On this page"></nav>
+
+        <section id="cheat-sheet" class="cs-section">
+            <h2 class="cs-section-title">Which form when</h2>
+            <p class="pl-muted pl-small">Every form of <span lang="pl">ten</span> and where it goes. <span lang="pl">tamten</span>
+                and <span lang="pl">ten sam</span> use the same endings.</p>
+            <div class="cs-table-wrap">
+                <table class="cs-table dm-cheat">
+                    <thead>
+                        <tr><th>Form</th><th>Used for</th><th class="pl-uk-only">Ukrainian</th></tr>
+                    </thead>
+                    <tbody id="dm-cheat-rows"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <div id="dm-words"></div>
+
+        <section id="tricky" class="cs-section">
+            <h2 class="cs-section-title">The usual mistakes</h2>
+            <ul id="dm-tricky" class="dm-tricky"></ul>
+        </section>
+
+        <p class="pl-small"><a class="dm-quiz-link" href="../demonstratives-quiz/">Practise with cards →</a></p>
+    </main>
+
+    <script src="../pages.js"></script>
+    <script src="../common.js"></script>
+    <script src="../cases/cases-data.js"></script>
+    <script src="demonstratives-data.js"></script>
+    <script src="demonstratives-core.js"></script>
+    <script src="demonstratives-page.js"></script>
+</body>
+
+</html>

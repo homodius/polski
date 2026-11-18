@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="The seven Polish cases: when to use each one, the endings for nouns and adjectives, and pronoun forms, with audio." />
+    <meta name="theme-color" content="#212529" />
+    <!-- Google Translate's speech audio refuses requests that name another site as referrer. -->
+    <meta name="referrer" content="no-referrer" />
+    <title>Polish Case Endings</title>
+    <link rel="icon" type="image/png" href="../../assets/img/icon.png" />
+    <link rel="manifest" href="../manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="../app/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Polski" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link href="../polish.css" rel="stylesheet" />
+    <link href="cases.css" rel="stylesheet" />
+    <script src="../../js/site-nav.js" defer></script>
+    <script src="../../js/share.js" defer></script>
+    <script src="../backup.js" defer></script>
+    <script src="../app.js" defer></script>
+</head>
+
+<body>
+    <main class="pl-app">
+        <h1 class="pl-title">Case endings<span class="pl-title-alt"><span lang="pl" tabindex="0" title="Tap to hear">Przypadki</span><span lang="uk"> · Відмінки</span></span></h1>
+        <nav class="pl-tabs pl-section-nav" data-page="cases"></nav>
+
+        <p class="cs-intro">Polish has seven cases<span lang="uk">, the same seven as Ukrainian, and they work in much the same way</span>: the
+            ending of a noun, adjective or pronoun changes with its job in the sentence. In every form below the part that
+            stays the same is plain and the <span class="cs-end">ending</span> is coloured;
+            <span class="cs-end cs-zero">∅</span> means no ending. Tap any Polish word to hear it.</p>
+
+        <nav id="cs-contents" class="cs-contents" aria-label="On this page"></nav>
+
+        <section class="cs-section" aria-labelledby="cs-overview-title">
+            <h2 id="cs-overview-title" class="cs-section-title">The seven cases</h2>
+            <div class="cs-table-wrap">
+                <table class="cs-table cs-overview">
+                    <thead>
+                        <tr><th>Case</th><th>Polish</th><th class="pl-uk-only">Ukrainian</th></tr>
+                    </thead>
+                    <tbody id="cs-overview-rows"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="genders" class="cs-section">
+            <h2 class="cs-section-title">First, find the gender</h2>
+            <p class="pl-muted pl-small">The endings depend on the gender, and masculine nouns split three ways: people,
+                animals and things. In the plural there are only two groups: men, and everything else.</p>
+            <ul id="cs-genders" class="cs-genders"></ul>
+        </section>
+
+        <div id="cs-cases"></div>
+
+        <section id="nouns" class="cs-section">
+            <h2 class="cs-section-title">Nouns, all cases</h2>
+            <div class="pl-filters">
+                <select id="cs-noun" class="pl-input" aria-label="Which noun"></select>
+            </div>
+            <p id="cs-noun-info" class="cs-table-info"></p>
+            <div class="cs-table-wrap">
+                <table id="cs-noun-table" class="cs-table"></table>
+            </div>
+            <p id="cs-noun-note" class="cs-note"></p>
+        </section>
+
+        <section id="adjectives" class="cs-section">
+            <h2 class="cs-section-title">Adjectives, all cases</h2>
+            <p class="pl-muted pl-small">An adjective takes the gender, number and case of its noun:
+                <button type="button" class="cs-say cs-static" lang="pl" data-say="off">dobry kot</button>,
+                <button type="button" class="cs-say cs-static" lang="pl" data-say="off">dobrego kota</button>,
+                <button type="button" class="cs-say cs-static" lang="pl" data-say="off">z dobrą kobietą</button>.</p>
+            <div class="pl-filters">
+                <select id="cs-adj" class="pl-input" aria-label="Which adjective"></select>
+            </div>
+            <div class="cs-table-wrap">
+                <table id="cs-adj-table" class="cs-table"></table>
+            </div>
+            <p id="cs-adj-note" class="cs-note"></p>
+        </section>
+
+        <section id="pronouns" class="cs-section">
+            <h2 class="cs-section-title">Pronouns, all cases</h2>
+            <div class="cs-table-wrap">
+                <table id="cs-pron-table" class="cs-table cs-pronouns"></table>
+            </div>
+            <ul id="cs-pron-notes" class="cs-list cs-note"></ul>
+        </section>
+    </main>
+
+    <script src="../pages.js"></script>
+    <script src="../common.js"></script>
+    <script src="cases-data.js"></script>
+    <script src="cases-page.js"></script>
+</body>
+
+</html>

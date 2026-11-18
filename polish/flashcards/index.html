@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="Flashcards and a quiz to learn Polish words, with spaced repetition." />
+    <meta name="theme-color" content="#212529" />
+    <!-- Google Translate's speech audio refuses requests that name another site as referrer. -->
+    <meta name="referrer" content="no-referrer" />
+    <title>Polish Flashcards</title>
+    <link rel="icon" type="image/png" href="../../assets/img/icon.png" />
+    <link rel="manifest" href="../manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="../app/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Polski" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link href="../polish.css" rel="stylesheet" />
+    <link href="../letters-quiz.css" rel="stylesheet" />
+    <script src="../../js/site-nav.js" defer></script>
+    <script src="../../js/share.js" defer></script>
+    <script src="../backup.js" defer></script>
+    <script src="../app.js" defer></script>
+</head>
+
+<body>
+    <main class="pl-app">
+        <h1 class="pl-title">Flashcards<span class="pl-title-alt"><span lang="pl" tabindex="0" title="Tap to hear">Fiszki</span><span lang="uk"> · Картки</span></span></h1>
+        <nav class="pl-tabs pl-section-nav" data-page="flashcards"></nav>
+
+        <!-- Same menus on Words and Flashcards: topics (pick several), all words or only D's words, practice set -->
+        <div class="pl-filters pl-scope">
+            <div id="topic-picker" class="pl-topics">
+                <button id="topic-button" class="pl-input pl-topic-button" type="button" aria-haspopup="true"
+                    aria-expanded="false" aria-controls="topic-menu">All topics</button>
+                <div id="topic-menu" class="pl-topic-menu" role="group" aria-label="Topics" hidden>
+                    <button id="topic-clear" class="pl-link pl-small" type="button">All topics</button>
+                    <div id="topic-options"></div>
+                </div>
+            </div>
+            <select id="word-set" class="pl-input" aria-label="Which words">
+                <option value="all">All words</option>
+                <option value="mine">My words</option>
+            </select>
+            <select id="practice-set" class="pl-input" aria-label="Practice set: words you marked hard, normal or easy, or picked by hand"></select>
+        </div>
+
+        <!-- Flashcards -->
+        <section id="pane-flashcards" class="pl-pane">
+            <!-- Flashcards; words-quiz.js adds a Cards / Quiz switch above and hides this in Quiz -->
+            <div id="fc-cards-view">
+                <div class="pl-filters">
+                    <label class="pl-check"><input id="fc-shuffle" type="checkbox" checked /> Shuffle cards</label>
+                </div>
+                <p id="fc-stats" class="pl-muted pl-small"></p>
+
+                <div id="fc-card" class="pl-card" aria-live="polite">
+                    <span id="fc-mine" class="pl-card-mine"><svg
+                            viewBox="0 0 24 24" aria-hidden="true"><path
+                                d="m12 2.5 2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5-4.8-4.6 6.6-.9z" /></svg><span
+                            id="fc-mine-text"></span></span>
+                    <p id="fc-topic" class="pl-card-topic"></p>
+                    <div id="fc-rate" class="pl-card-rate"></div>
+                    <p id="fc-front" class="pl-card-front" lang="pl"></p>
+                    <div class="pl-say-row">
+                        <button id="fc-speak" class="pl-speak" type="button" title="Generated voice (S)" aria-label="Say it"><svg
+                                viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z" /><path
+                                    d="M15.5 8.5a5 5 0 0 1 0 7" /><path d="M19 5a10 10 0 0 1 0 14" /></svg></button>
+                        <button id="fc-record" class="pl-speak" type="button" title="Native speaker recording (R)" aria-label="Play a recording"><svg
+                                viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3" /><path
+                                    d="M5 11a7 7 0 0 0 14 0" /><path d="M12 18v4" /></svg></button>
+                    </div>
+                    <div id="fc-back" class="pl-card-back" hidden>
+                        <p><span class="pl-label">EN</span> <span id="fc-en"></span></p>
+                        <p class="pl-uk-only"><span class="pl-label">UK</span> <span id="fc-uk" lang="uk"></span></p>
+                        <p id="fc-note" class="pl-muted pl-small"></p>
+                        <div id="fc-example" class="pl-card-example"></div>
+                    </div>
+                    <button id="fc-reveal" class="pl-button pl-primary" type="button">Show answer</button>
+                    <div id="fc-grades" class="pl-grades" hidden>
+                        <button class="pl-button" type="button" data-grade="again">Again</button>
+                        <button class="pl-button" type="button" data-grade="hard">Hard</button>
+                        <button class="pl-button" type="button" data-grade="good">Good</button>
+                        <button class="pl-button" type="button" data-grade="easy">Easy</button>
+                    </div>
+                    <button id="fc-next" class="pl-button pl-next" type="button" title="Go to the next word without grading this one (N or →)">Next word <span aria-hidden="true">→</span></button>
+                </div>
+
+                <div id="fc-done" class="pl-card" hidden>
+                    <p class="pl-card-front" lang="pl">Gotowe!</p>
+                    <p id="fc-done-text" class="pl-muted">Nothing left to review right now. Come back later for the cards that are due.</p>
+                    <button id="fc-more" class="pl-button pl-primary" type="button">Learn 10 new words</button>
+                </div>
+
+                <p class="pl-muted pl-small pl-keys">Keyboard: Space shows the answer, 1 to 4 grade it, S says the word, R plays a recording, N or → goes to the next word.</p>
+                <button id="fc-reset" class="pl-link" type="button">Reset progress</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="../srs.js"></script>
+    <script src="../ratings.js"></script>
+    <script src="../vocab.js"></script>
+    <script src="../examples.js"></script>
+    <script src="../pages.js"></script>
+    <script src="../common.js"></script>
+    <script src="../polish.js"></script>
+    <script src="../quiz.js"></script>
+    <script src="../words-quiz.js"></script>
+</body>
+
+</html>

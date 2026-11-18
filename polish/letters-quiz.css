@@ -1,0 +1,171 @@
+/* Letters quiz (letters-quiz.js). Uses the colours and buttons from polish.css. */
+.lq-card .pl-card-front {
+  font-size: 3rem;
+}
+
+.lq-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+@media (max-width: 480px) {
+  .lq-options {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lq-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  font-weight: 500;
+}
+
+.lq-option:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+
+.lq-option.is-right,
+.lq-option.is-wrong {
+  opacity: 1;
+}
+
+.lq-option.is-right {
+  border-color: #2e9e5b;
+  background: rgba(46, 158, 91, 0.12);
+}
+
+.lq-option.is-wrong {
+  border-color: #d9534f;
+  background: rgba(217, 83, 79, 0.12);
+}
+
+.lq-key {
+  flex: none;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--pl-muted);
+}
+
+.lq-verdict {
+  font-weight: 700;
+}
+
+.lq-verdict.is-right {
+  color: #2e9e5b;
+}
+
+.lq-verdict.is-wrong {
+  color: #d9534f;
+}
+
+.lq-example {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.lq-picker {
+  margin-top: 8px;
+}
+
+.lq-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.lq-chip {
+  min-width: 44px;
+  min-height: 40px;
+  padding: 6px 10px;
+  font: inherit;
+  font-weight: 600;
+  color: var(--pl-text);
+  background: var(--pl-card);
+  border: 2px solid var(--pl-border);
+  border-radius: 10px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.lq-chip.is-on {
+  color: #fff;
+  background: var(--pl-accent);
+  border-color: var(--pl-accent);
+}
+
+.lq-picker-actions {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.lq-picker-actions .pl-link {
+  margin: 8px 0 0;
+}
+
+.lq-picker .pl-primary {
+  display: block;
+  width: 100%;
+}
+
+.lq-picker .pl-primary:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.lq-modes {
+  margin-bottom: 12px;
+}
+
+.lq .pl-speaks {
+  flex-direction: row;
+  margin: 0;
+}
+
+/* Word quiz (words-quiz.js): a word on the card, meanings as the answers. */
+.wq-card .pl-card-front {
+  font-size: 2.1rem;
+}
+
+.wq-question {
+  margin: 12px 0 0;
+}
+
+.wq-meaning {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.wq-uk {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--pl-muted);
+}
+
+.wq-missed {
+  margin: 8px auto 16px;
+  padding: 0;
+  max-width: 28rem;
+  list-style: none;
+  text-align: left;
+}
+
+.wq-missed li {
+  padding: 6px 0;
+  border-bottom: 1px solid var(--pl-border);
+}
+
+@media (max-width: 480px) {
+  .wq-card .pl-card-front {
+    font-size: 1.7rem;
+  }
+}

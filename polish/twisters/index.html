@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="Polish tongue twisters from easy to hard, with meanings and audio." />
+    <meta name="theme-color" content="#212529" />
+    <!-- Google Translate's speech audio refuses requests that name another site as referrer. -->
+    <meta name="referrer" content="no-referrer" />
+    <title>Polish Tongue Twisters</title>
+    <link rel="icon" type="image/png" href="../../assets/img/icon.png" />
+    <link rel="manifest" href="../manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="../app/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Polski" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link href="../polish.css" rel="stylesheet" />
+    <link href="../twisters.css" rel="stylesheet" />
+    <script src="../../js/site-nav.js" defer></script>
+    <script src="../../js/share.js" defer></script>
+    <script src="../backup.js" defer></script>
+    <script src="../app.js" defer></script>
+</head>
+
+<body>
+    <main class="pl-app">
+        <h1 class="pl-title">Tongue twisters<span class="pl-title-alt"><span lang="pl" tabindex="0" title="Tap to hear">Łamańce językowe</span><span lang="uk"> · Скоромовки</span></span></h1>
+        <nav class="pl-tabs pl-section-nav" data-page="twisters"></nav>
+
+        <!-- Tongue twisters (łamańce językowe), easiest first -->
+        <section id="pane-twisters" class="pl-pane">
+            <div class="pl-filters">
+                <select id="twisters-level" class="pl-input" aria-label="How hard">
+                    <option value="all">All levels</option>
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+                <select id="twisters-set" class="pl-input" aria-label="Practice set: tongue twisters you marked hard, normal or easy, or picked by hand"></select>
+            </div>
+            <p class="pl-muted pl-small"><span lang="pl" class="pl-say-inline" tabindex="0" title="Tap to hear">Łamańce językowe</span>, from easy to hard. The coloured letters are the tricky sounds:
+                tap one to see how to say it on the Letters page. The turtle plays the line slowly.</p>
+            <p id="twisters-count" class="pl-muted pl-small"></p>
+            <ul id="twisters-rows" class="pl-words"></ul>
+            <p id="twisters-empty" class="pl-muted" hidden>Nothing here yet. Mark some tongue twisters first.</p>
+        </section>
+    </main>
+
+    <script src="../ratings.js"></script>
+    <script src="../letters.js"></script>
+    <script src="../twisters.js"></script>
+    <script src="../pages.js"></script>
+    <script src="../common.js"></script>
+    <script src="../twisters-page.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="Translate English sentences into Polish and see how close you got." />
+    <meta name="theme-color" content="#212529" />
+    <!-- Google Translate's speech audio refuses requests that name another site as referrer. -->
+    <meta name="referrer" content="no-referrer" />
+    <title>Polish Translation Quiz</title>
+    <link rel="icon" type="image/png" href="../../assets/img/icon.png" />
+    <link rel="manifest" href="../manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="../app/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Polski" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link href="../polish.css" rel="stylesheet" />
+    <link href="../translate.css" rel="stylesheet" />
+    <script src="../../js/site-nav.js" defer></script>
+    <script src="../../js/share.js" defer></script>
+    <script src="../backup.js" defer></script>
+    <script src="../app.js" defer></script>
+</head>
+
+<body>
+    <main class="pl-app">
+        <h1 class="pl-title">Translation quiz<span class="pl-title-alt"><span lang="pl" tabindex="0" title="Tap to hear">Przetłumacz zdanie</span><span lang="uk"> · Перекладіть речення</span></span></h1>
+        <nav class="pl-tabs pl-section-nav" data-page="translate-quiz"></nav>
+        <p class="pl-muted pl-small">Each card is an example sentence from the Words page. Write it in Polish, then
+            see the answer, where yours differs and what a translator says. Close counts: another word order or a
+            synonym can be right too, so hear both and judge.</p>
+
+        <div class="pl-filters">
+            <select id="trq-set" class="pl-input" aria-label="Which sentences">
+                <option value="all">All sentences</option>
+                <option value="mine">Sentences for my words</option>
+            </select>
+            <select id="trq-size" class="pl-input" aria-label="Sentences in a round">
+                <option value="5">5 a round</option>
+                <option value="10">10 a round</option>
+                <option value="20">20 a round</option>
+            </select>
+        </div>
+
+        <div id="trq-card" class="pl-card trq-card" hidden>
+            <div class="trq-top">
+                <p id="trq-count" class="pl-card-topic"></p>
+            </div>
+            <p id="trq-prompt" class="trq-prompt" lang="en"></p>
+            <p id="trq-uk" class="trq-uk" lang="uk"></p>
+            <form id="trq-form" class="tr-form" autocomplete="off">
+                <div class="tr-field">
+                    <div class="tr-field-head">
+                        <label for="trq-mine">Your Polish</label>
+                        <span id="trq-mine-say"></span>
+                    </div>
+                    <textarea id="trq-mine" class="pl-input" lang="pl" rows="2" spellcheck="false" placeholder="Napisz po polsku…"></textarea>
+                </div>
+                <div class="tr-actions">
+                    <button id="trq-check" class="pl-button pl-primary" type="submit">Check</button>
+                    <button id="trq-skip" class="pl-link" type="button">Show the answer</button>
+                </div>
+            </form>
+            <div id="trq-feedback" class="tr-result" aria-live="polite" hidden></div>
+            <button id="trq-next" class="pl-button pl-primary" type="button" hidden>Next</button>
+        </div>
+
+        <div id="trq-done" class="pl-card" hidden>
+            <p class="pl-card-front" lang="pl">Gotowe!</p>
+            <p id="trq-done-text" class="pl-muted"></p>
+            <button id="trq-retry" class="pl-button pl-primary" type="button">Practise the ones under 80%</button>
+            <button id="trq-again" class="pl-link" type="button">New round</button>
+        </div>
+        <p id="trq-empty" class="pl-muted" hidden>No example sentences for your words yet.</p>
+
+        <p class="pl-muted pl-small pl-keys">Keyboard: Enter checks (Shift + Enter for a new line), Enter again goes to
+            the next sentence.</p>
+    </main>
+
+    <script src="../vocab.js"></script>
+    <script src="../examples.js"></script>
+    <script src="../pages.js"></script>
+    <script src="../common.js"></script>
+    <script src="../quiz.js"></script>
+    <script src="../translator.js"></script>
+    <script src="translate-quiz.js"></script>
+</body>
+
+</html>

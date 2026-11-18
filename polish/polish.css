@@ -1,0 +1,1033 @@
+/* Polish vocabulary and flashcards */
+:root {
+  --pl-bg: #f4f6f8;
+  --pl-card: #fff;
+  --pl-text: #212529;
+  --pl-muted: #6c757d;
+  --pl-border: #dee2e6;
+  --pl-accent: #00a29a;
+  --pl-accent-soft: #e0f4f3;
+  --pl-warn: #c05600;
+  --pl-warn-soft: #fff3e0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --pl-bg: #16191c;
+    --pl-card: #212529;
+    --pl-text: #e9ecef;
+    --pl-muted: #9aa3ab;
+    --pl-border: #3a4148;
+    --pl-accent: #2cc3b9;
+    --pl-accent-soft: #173b39;
+    --pl-warn: #ffa94d;
+    --pl-warn-soft: #3a2a17;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--pl-bg);
+  color: var(--pl-text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.pl-app {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 24px 16px max(48px, env(safe-area-inset-bottom));
+}
+
+.pl-title {
+  font-size: 1.6rem;
+  line-height: 1.25;
+  margin: 0 0 16px;
+}
+
+.pl-title-alt {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--pl-muted);
+  margin-top: 4px;
+}
+
+.pl-muted {
+  color: var(--pl-muted);
+}
+
+.pl-small {
+  font-size: 0.85rem;
+}
+
+/* Tabs */
+.pl-tabs {
+  display: flex;
+  gap: 6px;
+  padding: 4px;
+  margin-bottom: 16px;
+  background: var(--pl-card);
+  border: 1px solid var(--pl-border);
+  border-radius: 12px;
+}
+
+.pl-tab {
+  flex: 1;
+  padding: 10px;
+  font: inherit;
+  font-weight: 600;
+  color: var(--pl-muted);
+  background: none;
+  border: 0;
+  border-radius: 9px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.pl-tab.active {
+  color: #fff;
+  background: var(--pl-accent);
+}
+
+/* The Polish line (pages.js): Polish › topic, and a button opening the site's side panel with every topic */
+.pl-section-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.pl-crumbs {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-weight: 600;
+  color: var(--pl-muted);
+}
+
+.pl-crumb {
+  color: var(--pl-muted);
+  text-decoration: none;
+}
+
+.pl-crumb:hover {
+  color: var(--pl-accent);
+  text-decoration: underline;
+}
+
+.pl-crumb[aria-current] {
+  color: var(--pl-text);
+}
+
+.pl-crumb-sep {
+  margin: 0 6px;
+}
+
+.pl-all-topics {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  font: inherit;
+  font-weight: 600;
+  color: var(--pl-accent);
+  background: var(--pl-card);
+  border: 1px solid var(--pl-border);
+  border-radius: 999px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.pl-all-topics:hover {
+  border-color: var(--pl-accent);
+}
+
+.pl-all-topics svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  fill: none;
+}
+
+/* With the side panel pinned open the topics are already in view. */
+html.site-nav-pinned .pl-all-topics {
+  display: none;
+}
+
+/* Learn / Quiz switch under the Polish line (pages.js), the same on every topic */
+.pl-variants {
+  max-width: 320px;
+  margin: -6px auto 16px;
+  padding: 3px;
+}
+
+.pl-variants .pl-tab {
+  padding: 7px 10px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.pl-variants .pl-tab:not(.active):hover {
+  color: var(--pl-text);
+}
+
+/* Polish home page: a tile per topic, with its Learn and Quiz pages (pages.js) */
+.pl-hub {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.pl-hub-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 16px;
+  color: var(--pl-text);
+  background: var(--pl-card);
+  border: 1px solid var(--pl-border);
+  border-radius: 12px;
+}
+
+/* The topic's name is the tile's link and covers the whole tile; Learn / Quiz sit above it. */
+.pl-hub-main {
+  color: inherit;
+  text-decoration: none;
+}
+
+.pl-hub-main::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+}
+
+.pl-hub-tile:has(.pl-hub-main:hover),
+.pl-hub-tile:focus-within {
+  border-color: var(--pl-accent);
+  box-shadow: 0 0 0 2px var(--pl-accent-soft);
+}
+
+.pl-hub-main:focus-visible {
+  outline: none;
+}
+
+.pl-hub-modes {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.pl-hub-mode {
+  padding: 4px 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--pl-accent);
+  text-decoration: none;
+  border: 1px solid var(--pl-accent);
+  border-radius: 999px;
+}
+
+.pl-hub-mode:hover,
+.pl-hub-mode:focus-visible {
+  color: #fff;
+  background: var(--pl-accent);
+  outline: none;
+}
+
+.pl-hub-title {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.pl-hub-pl {
+  color: var(--pl-accent);
+  font-weight: 600;
+}
+
+.pl-hub-desc {
+  color: var(--pl-muted);
+  font-size: 0.9rem;
+}
+
+.pl-hub-soon {
+  opacity: 0.6;
+}
+
+/* Voice picker */
+.pl-voice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: -4px 0 12px;
+}
+
+.pl-voice .pl-input {
+  min-height: 36px;
+  padding: 4px 8px;
+  font-size: 0.9rem;
+  border-width: 1px;
+}
+
+/* Filters */
+.pl-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pl-input {
+  flex: 1 1 200px;
+  min-height: 44px;
+  padding: 8px 12px;
+  font: inherit;
+  color: var(--pl-text);
+  background: var(--pl-card);
+  border: 2px solid var(--pl-border);
+  border-radius: 10px;
+}
+
+select.pl-input {
+  flex: 0 1 200px;
+}
+
+.pl-input:focus,
+.pl-tab:focus-visible,
+.pl-hub-mode:focus-visible,
+.pl-button:focus-visible,
+.pl-link:focus-visible,
+.pl-speak:focus-visible {
+  outline: 3px solid var(--pl-accent);
+  outline-offset: 1px;
+}
+
+.pl-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 4px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.pl-check input {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--pl-accent);
+}
+
+/* Word list */
+.pl-words {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.pl-word {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 2px 12px;
+  align-items: start;
+  padding: 12px 14px;
+  background: var(--pl-card);
+  border: 1px solid var(--pl-border);
+  border-radius: 12px;
+}
+
+.pl-word-pl {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.pl-word-meaning {
+  grid-column: 2 / 4;
+}
+
+.pl-word-note {
+  grid-column: 2 / 4;
+  font-size: 0.85rem;
+  color: var(--pl-muted);
+}
+
+.pl-word-example {
+  grid-column: 2 / 4;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0 8px;
+  align-items: center;
+  margin-top: 6px;
+  padding-left: 10px;
+  border-left: 3px solid var(--pl-accent-soft);
+}
+
+.pl-word-example .pl-speak {
+  grid-row: 1 / 3;
+  width: 30px;
+  height: 30px;
+}
+
+.pl-example-pl {
+  font-style: italic;
+}
+
+.pl-example-meaning {
+  font-size: 0.85rem;
+  color: var(--pl-muted);
+}
+
+.pl-word-topic {
+  font-size: 0.75rem;
+  color: var(--pl-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.pl-word a {
+  color: var(--pl-accent);
+}
+
+.pl-speaks {
+  grid-row: 1 / 4;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pl-speak {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--pl-accent);
+  background: var(--pl-accent-soft);
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.pl-speak:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.pl-speak svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* "Added by you" star */
+.pl-mine {
+  display: inline-flex;
+  vertical-align: -2px;
+  margin-left: 6px;
+  color: #e0a100;
+}
+
+.pl-mine svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+/* Flashcards */
+/* Every card says whose word it is: a gold star for D's words, a muted outline for the rest. */
+.pl-card-mine {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--pl-muted);
+}
+
+.pl-card-mine svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+}
+
+.pl-card-mine.is-mine {
+  color: #e0a100;
+}
+
+.pl-card-mine.is-mine svg {
+  fill: currentColor;
+}
+
+.pl-card {
+  position: relative;
+  margin-top: 8px;
+  padding: 28px 20px;
+  text-align: center;
+  background: var(--pl-card);
+  border: 1px solid var(--pl-border);
+  border-radius: 14px;
+}
+
+.pl-card-topic {
+  min-height: 1.2em;
+  margin: 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pl-muted);
+}
+
+.pl-card-front {
+  margin: 8px 0;
+  font-size: 2.1rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.pl-card-back {
+  margin: 16px 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--pl-border);
+  font-size: 1.1rem;
+}
+
+.pl-card-back p {
+  margin: 4px 0;
+}
+
+.pl-card-example .pl-word-example {
+  margin-top: 12px;
+  font-size: 1rem;
+  text-align: left;
+}
+
+.pl-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--pl-muted);
+  margin-right: 4px;
+}
+
+.pl-button {
+  min-height: 48px;
+  padding: 10px 16px;
+  font: inherit;
+  font-weight: 600;
+  color: var(--pl-text);
+  background: var(--pl-card);
+  border: 2px solid var(--pl-border);
+  border-radius: 12px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+@media (hover: hover) {
+  .pl-button:hover {
+    border-color: var(--pl-accent);
+  }
+}
+
+.pl-primary {
+  margin-top: 16px;
+  color: #fff;
+  background: var(--pl-accent);
+  border-color: var(--pl-accent);
+}
+
+.pl-grades {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.pl-next {
+  display: block;
+  min-width: 160px;
+  margin: 10px auto 0;
+}
+
+.pl-link {
+  display: block;
+  margin: 12px auto 0;
+  padding: 8px 12px;
+  font: inherit;
+  font-size: 0.95rem;
+  color: var(--pl-muted);
+  background: none;
+  border: 0;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.pl-say-row {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.pl-say-row .pl-speak {
+  width: 44px;
+  height: 44px;
+}
+
+.pl-say-row .pl-speak svg {
+  width: 22px;
+  height: 22px;
+}
+
+.pl-link:disabled {
+  opacity: 0.4;
+  text-decoration: none;
+  cursor: default;
+}
+
+.pl-keys {
+  text-align: center;
+  margin-top: 16px;
+}
+
+@media (max-width: 480px) {
+  .pl-grades {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pl-card-front {
+    font-size: 1.7rem;
+  }
+}
+
+@media (hover: none) {
+  .pl-keys {
+    display: none;
+  }
+}
+
+/* Topic and word-set filters, shared by both tabs */
+.pl-scope {
+  flex-wrap: nowrap;
+  margin-bottom: 12px;
+}
+
+.pl-topics {
+  position: relative;
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.pl-scope select.pl-input {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.pl-topic-button {
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  padding-right: 32px;
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: calc(100% - 18px) 50%, calc(100% - 13px) 50%;
+  background-size: 5px 5px;
+  background-repeat: no-repeat;
+}
+
+.pl-topic-button:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.pl-topic-menu {
+  position: absolute;
+  z-index: 5;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 100%;
+  max-width: calc(100vw - 32px);
+  max-height: 60vh;
+  overflow-y: auto;
+  padding: 6px;
+  background: var(--pl-card);
+  border: 1px solid var(--pl-border);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.pl-topic-menu .pl-link {
+  display: block;
+  margin: 2px 6px 4px;
+}
+
+.pl-topic-option {
+  min-height: 36px;
+  padding: 0 6px;
+  white-space: nowrap;
+  border-radius: 6px;
+}
+
+.pl-topic-option:hover {
+  background: var(--pl-border);
+}
+
+/* A-to-Z jump bar over the word list */
+.pl-letters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 10px 0 2px;
+}
+
+.pl-letter {
+  min-width: 32px;
+  height: 32px;
+  padding: 0 6px;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--pl-accent);
+  background: transparent;
+  border: 1px solid var(--pl-border);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.pl-letter:hover:not(:disabled) {
+  color: #fff;
+  background: var(--pl-accent);
+  border-color: var(--pl-accent);
+}
+
+.pl-letter:disabled {
+  color: var(--pl-muted);
+  opacity: 0.4;
+  cursor: default;
+}
+
+.pl-letter:focus-visible {
+  outline: 3px solid var(--pl-accent);
+  outline-offset: 1px;
+}
+
+.pl-word {
+  scroll-margin-top: 16px;
+}
+
+.pl-flash {
+  animation: pl-flash 1.2s ease-out;
+}
+
+@keyframes pl-flash {
+  from { background: rgba(0, 162, 154, 0.25); }
+  to { background: var(--pl-card); }
+}
+
+/* Letters tab */
+.pl-letter-big {
+  min-width: 2.4ch;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--pl-accent);
+  text-align: center;
+}
+
+.pl-letter-row .pl-word-pl {
+  font-size: 1rem;
+}
+
+.pl-letter-sound {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 8px;
+  align-items: baseline;
+  align-self: center;
+}
+
+.pl-letter-ipa {
+  font-size: 0.85rem;
+  color: var(--pl-muted);
+}
+
+.pl-letter-example .pl-speaks {
+  grid-row: 1 / 3;
+  flex-direction: row;
+}
+
+.pl-letter-mark {
+  color: var(--pl-accent);
+}
+
+.pl-letter-row {
+  scroll-margin-top: 12px;
+}
+
+/* Special cases (letters.js "exceptions"): a warning sign and a highlighted box */
+.pl-exception-icon {
+  display: inline-flex;
+  flex: none;
+  color: var(--pl-warn);
+}
+
+.pl-exception-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.pl-exception-icon .pl-exception-mark {
+  fill: none;
+  stroke: var(--pl-warn-soft);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+}
+
+.pl-letter-sound .pl-exception-icon {
+  align-self: center;
+}
+
+.pl-exceptions {
+  grid-column: 2 / 4;
+  margin: 2px 0;
+  padding: 6px 10px;
+  list-style: none;
+  border-left: 3px solid var(--pl-warn);
+  border-radius: 4px;
+  background: var(--pl-warn-soft);
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+.pl-exception {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.pl-exception + .pl-exception {
+  margin-top: 4px;
+}
+
+.pl-exception .pl-exception-icon {
+  margin-top: 1px;
+}
+
+/* Letters that are soft like the Ukrainian and Russian soft sign ь (letters.js "softSign") */
+.pl-soft-sign {
+  grid-column: 2 / 4;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  margin: 2px 0;
+  padding: 6px 10px;
+  border-left: 3px solid var(--pl-accent);
+  border-radius: 4px;
+  background: var(--pl-accent-soft);
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+.pl-soft-sign-badge {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--pl-accent);
+  color: var(--pl-card);
+  font-weight: 700;
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.pl-letter-like .pl-muted {
+  font-size: 0.9rem;
+}
+
+/* How hard a word is (ratings.js): Easy / Normal / Hard, plus Pick for the hand-picked set */
+.pl-rate {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.pl-word > .pl-rate {
+  grid-column: 2 / 4;
+  margin-top: 8px;
+}
+
+.pl-card-rate {
+  display: flex;
+  justify-content: center;
+  margin: 4px 0 8px;
+}
+
+.pl-rate-btn {
+  min-height: 30px;
+  padding: 2px 10px;
+  font: inherit;
+  font-size: 0.8rem;
+  color: var(--pl-muted);
+  background: none;
+  border: 1px solid var(--pl-border);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.pl-rate-btn:focus-visible {
+  outline: 3px solid var(--pl-accent);
+  outline-offset: 1px;
+}
+
+.pl-rate-pick {
+  margin-left: 6px;
+}
+
+.pl-rate-btn[aria-pressed="true"] {
+  color: #fff;
+  font-weight: 600;
+}
+
+.pl-rate-easy[aria-pressed="true"] {
+  background: #2f9e44;
+  border-color: #2f9e44;
+}
+
+.pl-rate-normal[aria-pressed="true"] {
+  background: #1971c2;
+  border-color: #1971c2;
+}
+
+.pl-rate-hard[aria-pressed="true"] {
+  background: #e03131;
+  border-color: #e03131;
+}
+
+.pl-rate-pick[aria-pressed="true"] {
+  background: var(--pl-accent);
+  border-color: var(--pl-accent);
+}
+
+/* Three menus don't fit side by side on a phone: the Practice menu takes its own line. */
+@media (max-width: 560px) {
+  .pl-scope {
+    flex-wrap: wrap;
+  }
+
+  .pl-scope #practice-set {
+    flex-basis: 100%;
+  }
+}
+
+/* Ukrainian is hidden on every Polish page unless the menu's "Show Ukrainian" switch is on
+   (js/site-nav.js and polish/common.js add html.pl-show-uk). .pl-uk-only marks things that only
+   make sense next to the Ukrainian, such as a "UK" label or a separator before it. */
+html:not(.pl-show-uk) [lang="uk"],
+html:not(.pl-show-uk) .pl-uk-only {
+  display: none !important;
+}
+
+html.pl-show-uk .pl-uk-off-only {
+  display: none !important;
+}
+
+/* Quiz chips that say who or what a card is about (PolishPage.whoLine): number, gender, pronoun. */
+.pl-who {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin: 8px 0 0;
+}
+
+.pl-who-chip {
+  border: 1px solid var(--pl-border);
+  border-radius: 999px;
+  padding: 2px 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.pl-who-num {
+  background: var(--pl-accent-soft);
+  border-color: var(--pl-accent);
+}
+
+.pl-who-gender {
+  background: var(--pl-warn-soft);
+  border-color: var(--pl-warn);
+}
+
+.pl-who-uk {
+  font-weight: 400;
+}
+
+.pl-who-pronoun {
+  font-style: italic;
+  cursor: pointer;
+}
+
+/* A sentence that sets the scene before the quiz sentence (PolishPage.contextLine). */
+.pl-context {
+  margin: 10px auto 0;
+  padding: 6px 12px;
+  border-left: 3px solid var(--pl-accent);
+  max-width: 34rem;
+  text-align: left;
+}
+
+.pl-context-pl {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.pl-context-pl .pl-speaks {
+  flex-direction: row;
+  margin: 0;
+}
+
+.pl-context-en {
+  margin: 2px 0 0;
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="theme-color" content="#212529" />
+    <title>Connecting to Google</title>
+    <link rel="icon" type="image/png" href="../../assets/img/icon.png" />
+    <style>
+        html, body { margin: 0; height: 100%; background: #f4f6f8; color: #212529;
+            font: 17px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; }
+        @media (prefers-color-scheme: dark) { html, body { background: #16191c; color: #e9ecef; } }
+        main { display: flex; height: 100%; align-items: center; justify-content: center; padding: 0 16px; text-align: center; }
+        a { color: #00a29a; }
+    </style>
+</head>
+
+<body>
+    <!-- Google sends the visitor back here after "Sign in with Google" (see ../sync.js). This page
+         keeps the one-hour pass Google hands over and returns to the page they came from. -->
+    <main><p id="msg">Connecting to Google…</p></main>
+    <script>
+        (function () {
+            var params = new URLSearchParams(location.hash.slice(1));
+            history.replaceState(null, "", location.pathname); // keep the pass out of history
+            var saved = null;
+            try { saved = JSON.parse(sessionStorage.getItem("polish-sync.state")); sessionStorage.removeItem("polish-sync.state"); } catch (e) { /* none */ }
+            var back = "../";
+            if (saved && saved.back) {
+                try { if (new URL(saved.back).origin === location.origin) back = saved.back; } catch (e) { /* keep default */ }
+            }
+            function done() { location.replace(back); }
+            function store(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* blocked */ } }
+
+            if (!saved || params.get("state") !== saved.nonce) { done(); return; }
+
+            var access = params.get("access_token");
+            if (access) {
+                var secs = Number(params.get("expires_in")) || 3600;
+                store("polish-sync.token", JSON.stringify({ access: access, exp: Date.now() + secs * 1000 }));
+                var acc = null;
+                try { acc = JSON.parse(localStorage.getItem("polish-sync.account")); } catch (e) { /* none */ }
+                if (!acc) {
+                    store("polish-sync.account", "{}");
+                    try { sessionStorage.setItem("polish-sync.just", "first"); } catch (e) { /* fine */ }
+                }
+                try { localStorage.removeItem("polish-sync.reconnect"); } catch (e) { /* fine */ }
+                done();
+                return;
+            }
+            // No pass: a quiet try needs a tap next time; a cancelled sign-in just goes back.
+            if (saved.quiet) store("polish-sync.reconnect", "1");
+            done();
+        })();
+    </script>
+</body>
+
+</html>

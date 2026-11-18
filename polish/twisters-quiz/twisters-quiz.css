@@ -1,0 +1,50 @@
+/* Tongue twister quiz (twisters-quiz.js). Uses polish.css, twisters.css and the option buttons
+   in letters-quiz.css. */
+.tq-card .pl-card-front {
+  font-size: 1.5rem;
+  line-height: 1.45;
+  margin: 8px 0;
+  overflow-wrap: anywhere; /* Konstantynopolitańczykowianeczka */
+}
+
+.tq-gap {
+  color: var(--pl-muted);
+  letter-spacing: 0.05em;
+}
+
+/* The missing word, once answered */
+.tq-word {
+  color: var(--pl-accent);
+  font-weight: 700;
+  border-bottom: 3px solid var(--pl-accent);
+}
+
+.tq-meaning p {
+  margin: 2px 0;
+}
+
+.tq-option-text {
+  overflow-wrap: anywhere;
+}
+
+.tq-whole {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 1.1rem;
+}
+
+.tq .lq-verdict .pl-speaks,
+.tq-whole .pl-speaks {
+  flex-direction: row;
+  margin: 0;
+}
+
+.tq a.pl-twister-mark {
+  color: var(--pl-accent);
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 2px dotted var(--pl-accent);
+}

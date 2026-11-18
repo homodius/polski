@@ -1,0 +1,259 @@
+/* Verb tenses page (verbs-page.js) */
+.vb-toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 8px;
+}
+
+.vb-toc a {
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--pl-accent);
+  text-decoration: none;
+  background: var(--pl-card);
+  border: 1px solid var(--pl-border);
+  border-radius: 999px;
+}
+
+.vb-toc a:hover,
+.vb-toc a:focus-visible {
+  background: var(--pl-accent-soft);
+}
+
+.vb-section {
+  margin-top: 28px;
+  scroll-margin-top: 12px;
+}
+
+.vb-section h2 {
+  font-size: 1.35rem;
+  margin: 0 0 8px;
+  padding-top: 16px;
+  border-top: 1px solid var(--pl-border);
+}
+
+.vb-section h3 {
+  font-size: 1.05rem;
+  margin: 20px 0 6px;
+}
+
+.vb-h-alt {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--pl-muted);
+}
+
+.vb-app a {
+  color: var(--pl-accent);
+}
+
+.vb-end {
+  color: var(--pl-accent);
+  font-weight: 700;
+}
+
+/* Polish text in the explanations: tap to hear */
+.vb-say {
+  cursor: pointer;
+  border-bottom: 1px dotted var(--pl-accent);
+}
+
+.vb-say:hover {
+  background: var(--pl-accent-soft);
+}
+
+.vb-say:focus-visible {
+  outline: 2px solid var(--pl-accent);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+.vb-tip {
+  padding: 10px 14px;
+  background: var(--pl-accent-soft);
+  border-radius: 10px;
+}
+
+.vb-list,
+.vb-groups {
+  padding-left: 1.2em;
+}
+
+.vb-list li,
+.vb-groups li {
+  margin-bottom: 4px;
+}
+
+.vb-chips {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.vb-chips li {
+  padding: 4px 10px;
+  background: var(--pl-card);
+  border: 1px solid var(--pl-border);
+  border-radius: 8px;
+}
+
+/* Tables */
+.vb-scroll {
+  overflow-x: auto;
+  margin: 8px 0 12px;
+}
+
+.vb-table {
+  border-collapse: collapse;
+  background: var(--pl-card);
+  border: 1px solid var(--pl-border);
+  border-radius: 10px;
+  min-width: 100%;
+}
+
+.vb-table th,
+.vb-table td {
+  padding: 6px 10px;
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--pl-border);
+}
+
+.vb-table tr:last-child > * {
+  border-bottom: 0;
+}
+
+.vb-table thead th,
+.vb-subhead th {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--pl-muted);
+  white-space: nowrap;
+}
+
+.vb-table tbody th {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.vb-forms td {
+  white-space: nowrap;
+}
+
+.vb-endings td {
+  font-size: 1.05rem;
+}
+
+.vb-summary td {
+  font-size: 0.95rem;
+}
+
+.vb-muted {
+  color: var(--pl-muted);
+  font-size: 0.9rem;
+}
+
+/* A form in a table: a button that says it, the ending coloured */
+.vb-form {
+  font: inherit;
+  font-size: 1.05rem;
+  color: var(--pl-text);
+  padding: 4px 8px;
+  margin: -4px -8px;
+  background: none;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  touch-action: manipulation;
+}
+
+.vb-form::after {
+  content: "";
+  display: inline-block;
+  width: 0.8em;
+  height: 0.8em;
+  margin-left: 0.3em;
+  vertical-align: -0.05em;
+  background: var(--pl-accent);
+  opacity: 0.45;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M11 5 6 9H2v6h4l5 4V5z'/%3E%3Cpath d='M15.5 8.5a5 5 0 0 1 0 7'/%3E%3Cpath d='M19 5a10 10 0 0 1 0 14'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M11 5 6 9H2v6h4l5 4V5z'/%3E%3Cpath d='M15.5 8.5a5 5 0 0 1 0 7'/%3E%3Cpath d='M19 5a10 10 0 0 1 0 14'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.vb-form:hover,
+.vb-form:focus-visible {
+  background: var(--pl-accent-soft);
+}
+
+.vb-form:hover::after,
+.vb-form:focus-visible::after {
+  opacity: 1;
+}
+
+.vb-form:focus-visible {
+  outline: 2px solid var(--pl-accent);
+}
+
+.vb-inf {
+  font-weight: 700;
+}
+
+.vb-caption {
+  margin: 12px 0 0;
+}
+
+.vb-verb-head {
+  font-size: 1.1rem;
+  margin-top: 12px;
+}
+
+.vb-verb-head .vb-inf {
+  font-size: 1.3rem;
+}
+
+.vb-tense .vb-scroll + .vb-scroll {
+  margin-top: -4px;
+}
+
+/* Example sentences: Polish, then English and Ukrainian */
+.vb-examples {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.vb-examples li {
+  display: grid;
+  padding: 8px 12px;
+  background: var(--pl-card);
+  border: 1px solid var(--pl-border);
+  border-left: 3px solid var(--pl-accent);
+  border-radius: 8px;
+}
+
+.vb-examples [lang="pl"] {
+  font-weight: 600;
+  justify-self: start;
+}
+
+.vb-examples li > :not([lang="pl"]) {
+  font-size: 0.9rem;
+  color: var(--pl-muted);
+}
+
+@media (max-width: 480px) {
+  .vb-table th,
+  .vb-table td {
+    padding: 6px 7px;
+  }
+
+  .vb-form {
+    font-size: 0.98rem;
+  }
+}

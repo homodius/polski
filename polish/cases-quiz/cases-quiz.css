@@ -1,0 +1,98 @@
+/* Case endings quiz (cases-quiz.js). Uses polish.css and the option buttons in letters-quiz.css. */
+.cq-card .pl-card-front {
+  font-size: 2.6rem;
+  margin: 4px 0;
+}
+
+.cq-word {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0 0;
+}
+
+.cq-word .pl-speaks,
+.cq-cue .pl-speaks,
+.cq .lq-verdict .pl-speaks {
+  flex-direction: row;
+  margin: 0;
+}
+
+.cq-stem {
+  color: var(--pl-text);
+}
+
+.cq-gap {
+  color: var(--pl-muted);
+  letter-spacing: 0.05em;
+}
+
+/* The changing part, in the accent colour wherever it is shown. */
+.cq-ending {
+  color: var(--pl-accent);
+  font-weight: 700;
+  border-bottom: 3px solid var(--pl-accent);
+}
+
+.cq-ending.is-zero {
+  font-weight: 400;
+  border-bottom: 0;
+  font-size: 0.6em;
+  vertical-align: middle;
+  margin-left: 4px;
+}
+
+.cq-cue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 1.2rem;
+  font-style: italic;
+  margin: 4px 0 0;
+}
+
+.cq-cue strong {
+  font-style: normal;
+}
+
+.cq-cue .cq-ending {
+  border-bottom-width: 2px;
+}
+
+.cq-option {
+  justify-content: flex-start;
+}
+
+.cq-option-text {
+  flex: 1;
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.cq .lq-verdict {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.cq .lq-rate {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.cq .pl-filters select {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.cq a {
+  color: var(--pl-accent);
+}
