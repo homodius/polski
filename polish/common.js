@@ -684,7 +684,50 @@
     return box;
   }
 
+  // ---------- Taking back a mistap ----------
+  // The quizzes are practice, not a test, so a wrong tap can be taken back: the mistake is
+  // forgotten and the card asks again with the same options.
+
+  // A "Misclicked? Undo" link, hidden until a wrong answer shows it.
+  function undoButton(onUndo) {
+    var b = node("button", "pl-link pl-undo", "Misclicked? Undo");
+    b.type = "button";
+    b.hidden = true;
+    b.title = "Take back this answer and choose again (U)";
+    b.addEventListener("click", onUndo);
+    return b;
+  }
+
+  // Takes one mistake off `key` in polish.mistakes, dropping the key when it reaches 0.
+  function forgetMistake(key) {
+    try {
+      var all = JSON.parse(localStorage.getItem("polish.mistakes")) || {};
+      if (!all[key]) return;
+      if (all[key] > 1) all[key]--;
+      else delete all[key];
+      localStorage.setItem("polish.mistakes", JSON.stringify(all));
+    } catch (e) { /* storage blocked */ }
+  }
+
+  // Makes answer buttons tappable again and clears their right / wrong colours.
+  function reopenOptions(container) {
+    Array.prototype.forEach.call(container.children, function (b) {
+      b.disabled = false;
+      b.classList.remove("is-right", "is-wrong");
+    });
+    if (container.firstElementChild) container.firstElementChild.focus({ preventScroll: true });
+  }
+
+  // True for the key that takes back an answer: U, or Backspace.
+  function isUndoKey(e) {
+    return e.key === "u" || e.key === "U" || e.key === "Backspace";
+  }
+
   window.PolishPage = window.PolishAudio = {
+    undoButton: undoButton,
+    forgetMistake: forgetMistake,
+    reopenOptions: reopenOptions,
+    isUndoKey: isUndoKey,
     whoLine: whoLine,
     contextLine: contextLine,
     say: sayGenerated,

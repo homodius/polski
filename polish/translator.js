@@ -182,7 +182,12 @@
 
     var weight = { same: 1, moved: 0.9, accent: 0.75, ending: 0.5 };
     var got = parts.reduce(function (s, p) { return s + (p.type === "moved" ? (p.mine != null ? weight.moved : 0) : weight[p.type] || 0); }, 0);
-    var score = Math.round(100 * got / Math.max(n, m, 1));
+    // A personal pronoun only on one side (Ja mam kota / Mam kota) is not a mistake: Polish may
+    // leave it out or keep it for stress. It doesn't count towards the length either side.
+    function isPronoun(word) { return word != null && PRONOUNS.indexOf(word.toLowerCase()) !== -1; }
+    var extraPron = parts.filter(function (p) { return p.type === "extra" && isPronoun(p.mine); }).length;
+    var missingPron = parts.filter(function (p) { return p.type === "missing" && isPronoun(p.ref); }).length;
+    var score = Math.round(100 * got / Math.max(n - extraPron, m - missingPron, 1));
     return { parts: parts, score: score, tips: tips(parts, a, b) };
   }
 

@@ -57,7 +57,7 @@ window.POLISH_CASE_DRILL = {
       word: "przyjaciel", en: "friend", enPl: "friends", uk: "друг", gender: "m-pers", alive: true,
       ctx: { sg: ["Tomek to mój najlepszy przyjaciel.", "Tomek is my best friend."], pl: ["Tomek i Marek znają mnie od zawsze.", "Tomek and Marek have known me forever."] },
       sg: { nom: "przyjaciel|", gen: "przyjaciel|a", dat: "przyjaciel|owi", acc: "przyjaciel|a", ins: "przyjaciel|em", loc: "przyjaciel|u", voc: "przyjaciel|u" },
-      pl: { nom: "przyjaciel|e", gen: "przyjaciół|", dat: "przyjaciel|om", acc: "przyjaciół|", ins: "przyjaciół|mi", loc: "przyjaciel|ach" },
+      pl: { nom: "przyjaciel|e", gen: "przyjaciół|", dat: "przyjacioł|om", acc: "przyjaciół|", ins: "przyjaciół|mi", loc: "przyjacioł|ach" },
     },
     {
       word: "kolega", en: "colleague", enPl: "colleagues", uk: "колега, приятель", gender: "m-pers", alive: true,
@@ -202,7 +202,10 @@ window.POLISH_CASE_DRILL = {
     {
       word: "morze", en: "sea", enPl: "seas", uk: "море", gender: "n",
       ctx: { sg: ["Bałtyk to zimne morze.", "The Baltic is a cold sea."], pl: ["Bałtyk i Adriatyk są zupełnie inne.", "The Baltic and the Adriatic are completely different."] },
-      cues: { ins: ["Jestem nad ___.", "I'm at the seaside.", "I'm interested in {enPl}."] },
+      cues: {
+        ins: ["Jestem nad ___.", "I'm at the seaside.", ""],
+        insPl: ["Interesuję się ___.", "", "I'm interested in seas."],
+      },
       sg: { nom: "morz|e", gen: "morz|a", dat: "morz|u", acc: "morz|e", ins: "morz|em", loc: "morz|u" },
       pl: { nom: "morz|a", gen: "mórz|", dat: "morz|om", acc: "morz|a", ins: "morz|ami", loc: "morz|ach" },
     },

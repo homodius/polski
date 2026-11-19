@@ -168,6 +168,8 @@
   var rate = R ? R.control(document, "verb", VERBS[0].inf) : null;
   if (rate) rate.classList.add("lq-rate");
   [cue, whoBox, rate, verbLine, contextBox, word, meaningLine, options, feedback, next].forEach(function (n) { if (n) card.appendChild(n); });
+  var undo = audio().undoButton(function () { undoAnswer(); });
+  options.insertAdjacentElement("afterend", undo);
   // Show / Hide Ukrainian at the top: the Ukrainian of a form often is the answer (czytali, читали).
 
   var done = el("div", "pl-card");
@@ -182,7 +184,7 @@
   [doneTitle, doneText, doneList, retryMissed, again].forEach(function (n) { done.appendChild(n); });
 
   var keys = el("p", "pl-muted pl-small pl-keys",
-    "Keyboard: 1 to 4 pick an ending, Enter goes to the next card, S says the whole form.");
+    "Keyboard: 1 to 4 pick an ending, Enter goes to the next card, U takes back a wrong tap, S says the whole form.");
 
   [filters, stats, card, done, keys].forEach(function (n) { root.appendChild(n); });
 
@@ -265,6 +267,7 @@
     });
     feedback.hidden = true;
     next.hidden = true;
+    undo.hidden = true;
     renderStats();
   }
 
@@ -344,7 +347,23 @@
     renderStats();
     next.hidden = false;
     next.textContent = round.index + 1 < round.deck.length ? "Next" : "See results";
+    undo.hidden = right;
     next.focus();
+  }
+
+  // A mistap: forget the mistake and ask the same card again with the same options.
+  function undoAnswer() {
+    if (!round || !round.answered || undo.hidden) return;
+    round.wrong.pop();
+    round.missed.pop();
+    audio().forgetMistake(round.q.key);
+    round.answered = false;
+    renderWord(round.q, null);
+    feedback.hidden = true;
+    next.hidden = true;
+    undo.hidden = true;
+    renderStats();
+    audio().reopenOptions(options);
   }
 
   // The whole form, with the ending coloured, and a button to hear it.
@@ -432,6 +451,9 @@
     if (n >= 1 && n <= options.children.length && !round.answered) {
       e.preventDefault();
       options.children[n - 1].click();
+    } else if (audio().isUndoKey(e) && round.answered && !undo.hidden) {
+      e.preventDefault();
+      undoAnswer();
     } else if (e.key === "Enter" && round.answered && e.target !== next) {
       e.preventDefault();
       advance();

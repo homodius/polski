@@ -132,7 +132,8 @@
   feedback.hidden = true;
   var next = button("pl-button pl-primary", "Next", function () { advance(); });
   next.hidden = true;
-  [badge, cardLabel, rateRow, front, sayRow, question, options, feedback, next].forEach(function (n) {
+  var undo = P.undoButton(function () { undoAnswer(); });
+  [badge, cardLabel, rateRow, front, sayRow, question, options, undo, feedback, next].forEach(function (n) {
     if (n) card.appendChild(n);
   });
   // Show / Hide Ukrainian: the Ukrainian meanings on the options can give the word away.
@@ -150,7 +151,7 @@
   [doneTitle, doneText, missedList, retryMissed, again].forEach(function (n) { done.appendChild(n); });
 
   var keys = el("p", "pl-muted pl-small pl-keys",
-    "Keyboard: 1 to 4 pick an answer, Enter goes to the next word, S says the word, R plays a recording.");
+    "Keyboard: 1 to 4 pick an answer, Enter goes to the next word, U takes back a wrong tap, S says the word, R plays a recording.");
 
   [filters, stats, card, done, keys].forEach(function (n) { root.appendChild(n); });
 
@@ -221,6 +222,7 @@
     question.hidden = false;
     feedback.hidden = true;
     next.hidden = true;
+    undo.hidden = true;
     renderStats();
   }
 
@@ -252,7 +254,22 @@
     P.sayGenerated(word.pl);
     next.hidden = false;
     next.textContent = round.index + 1 < round.deck.length ? "Next" : "See results";
+    undo.hidden = right;
     next.focus();
+  }
+
+  // A mistap: forget the mistake and ask the same word again with the same options.
+  function undoAnswer() {
+    if (!round || !round.answered || undo.hidden) return;
+    round.wrong.pop();
+    P.forgetMistake(Q.mistakeKey(round.word));
+    round.answered = false;
+    question.hidden = false;
+    feedback.hidden = true;
+    next.hidden = true;
+    undo.hidden = true;
+    renderStats();
+    P.reopenOptions(options);
   }
 
   function showFeedback(word, right, choice, missed) {
@@ -347,6 +364,9 @@
     } else if (e.key === "Enter" && round.answered && e.target !== next) {
       e.preventDefault();
       advance();
+    } else if (P.isUndoKey(e) && !undo.hidden) {
+      e.preventDefault();
+      undoAnswer();
     } else if (e.key === "s" || e.key === "S") {
       P.sayGenerated(round.word.pl, true);
     } else if (e.key === "r" || e.key === "R") {

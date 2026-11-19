@@ -24,6 +24,15 @@
     return /^(sz|rz|[szśźż])[^aąeęioóuy]/i.test(form) ? "ze" : "z";
   }
 
+  // The part of `form` shared with the dictionary stem: "mamie" with "mam" → "mam". When a case
+  // changes the stem (mam → mami-, kobiet → kobieci-, okn → okni-), the card prints only this part,
+  // so the changed letters are part of what you pick ("-ie", not "-e" after a printed "mami").
+  function sharedStart(form, stem) {
+    var n = 0;
+    while (n < form.length && n < stem.length && form.charAt(n) === stem.charAt(n)) n++;
+    return form.slice(0, n);
+  }
+
   function fill(template, noun) {
     return template.replace(/\{en\}/g, noun.en || "").replace(/\{enPl\}/g, noun.enPl || noun.en || "");
   }
@@ -63,11 +72,18 @@
           var cue = cueFor(noun, num, c.id, data.cues);
           if (!cue) return;
           var f = parseForm(forms[c.id]);
+          // What the card prints and asks: the data's stem and ending, unless the stem changed,
+          // then the part shared with the dictionary stem and everything after it.
+          var shown = f.stem === stem0 ? f.stem : sharedStart(f.form, stem0);
           items.push({
             id: noun.word + "." + num + "." + c.id,
             word: noun.word, en: noun.en, uk: noun.uk, gender: noun.gender,
             num: num, caseId: c.id, caseInfo: cases[c.id],
-            stem: f.stem, ending: f.ending, also: f.also, form: f.form,
+            stem: shown, ending: f.form.slice(shown.length),
+            also: f.also.map(function (e) { return (f.stem + e).slice(shown.length); }), form: f.form,
+            // The data's own split, for the rule after a wrong answer (endings grouped as the
+            // grammar names them: -e, not -ie / -cie).
+            dataStem: f.stem, dataEnding: f.ending, dataAlso: f.also,
             stemChanged: f.stem !== stem0 ? stem0 : "",
             cue: cue[0].replace("{z}", withZ(f.form)),
             cueEn: cue[1],
@@ -86,8 +102,9 @@
   }
 
   // Ending-only answer choices: the right ending plus wrong ones that are easy to mix up,
-  // first the same word's endings in other cases, then other words' endings in this case.
-  // Endings that would also be right here (kotu / kotowi) never show up as wrong answers.
+  // first the same word's other forms (after the same printed stem), then other words' endings
+  // in this case. Endings that would also be right here (kotu / kotowi) never show up as wrong
+  // answers.
   function makeOptions(item, items, rand, count) {
     var n = count || OPTION_COUNT;
     var banned = {};
@@ -95,10 +112,13 @@
     item.also.forEach(function (e) { banned[e] = true; });
     var sameWord = [], sameCase = [], rest = [];
     items.forEach(function (other) {
-      var e = other.ending;
-      if (other.word === item.word) sameWord.push(e);
-      else if (other.caseId === item.caseId) sameCase.push(e);
-      else rest.push(e);
+      if (other.word === item.word) {
+        // Another form of this word, cut after the stem this card prints: mamę → -ę after "mam".
+        [other.form].concat(other.also.map(function (e) { return other.stem + e; })).forEach(function (form) {
+          if (form.indexOf(item.stem) === 0) sameWord.push(form.slice(item.stem.length));
+        });
+      } else if (other.caseId === item.caseId) sameCase.push(other.ending);
+      else rest.push(other.ending);
     });
     var wrong = [];
     function take(list, upTo) {
@@ -108,7 +128,9 @@
         wrong.push(e);
       });
     }
-    take(sameWord, 2);
+    // After a shortened stem (mam___, kobie___) other words' endings rarely look like a word,
+    // so this word's own forms come first.
+    take(sameWord, item.stem === item.dataStem ? 2 : n - 1);
     take(sameCase, n - 1);
     take(sameWord, n - 1);
     take(rest, n - 1);
@@ -164,26 +186,26 @@
     var order = [];
     items.forEach(function (other) {
       if (other.caseId !== item.caseId || other.num !== item.num || other.gender !== item.gender) return;
-      [other.ending].concat(other.also).forEach(function (e) {
+      [other.dataEnding].concat(other.dataAlso).forEach(function (e) {
         if (!byEnding[e]) {
           byEnding[e] = { ending: e, count: 0, words: [] };
           order.push(byEnding[e]);
         }
         var b = byEnding[e];
         b.count++;
-        if (other.word !== item.word && b.words.length < 2) b.words.push(other.stem + e);
+        if (other.word !== item.word && b.words.length < 2) b.words.push(other.dataStem + e);
       });
     });
     // An ending only this word has gets its own form as the example.
     order.forEach(function (b) {
-      if (!b.words.length && (b.ending === item.ending || item.also.indexOf(b.ending) !== -1)) b.words.push(item.stem + b.ending);
+      if (!b.words.length && (b.ending === item.dataEnding || item.dataAlso.indexOf(b.ending) !== -1)) b.words.push(item.dataStem + b.ending);
     });
     order.sort(function (a, b) { return b.count - a.count; });
     function list(lang) {
       return order.map(function (b) {
         var text = (b.ending ? "-" + b.ending : (lang ? "без закінчення" : "no ending")) +
           (b.words.length ? " (" + b.words.map(function (w) { return "{" + w + "}"; }).join(", ") + ")" : "");
-        var right = b.ending === item.ending || item.also.indexOf(b.ending) !== -1;
+        var right = b.ending === item.dataEnding || item.dataAlso.indexOf(b.ending) !== -1;
         return right ? "**" + text + "**" : text;
       }).join(" · ");
     }

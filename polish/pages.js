@@ -13,6 +13,10 @@
 // and the home page shows the tiles with <div class="pl-hub" id="pl-hub"></div>.
 (function () {
   var PAGES = [
+    { id: "practice", path: "practice/", title: "Practice", pl: "Ćwiczenia", single: true,
+      desc: "Endless mixed cards from every topic; skip any card",
+      learn: { page: "practice", path: "practice/" },
+      quiz: { page: "practice", path: "practice/" } },
     { id: "words", path: "words/", title: "Words", pl: "Słowa", desc: "Vocabulary with meanings, examples and audio",
       learn: { page: "words", path: "words/" },
       quiz: { page: "flashcards", path: "flashcards/", desc: "Flashcards with spaced repetition, and a meaning quiz" } },
@@ -20,8 +24,7 @@
       learn: { page: "letters", path: "letters/" },
       quiz: { page: "letters", path: "letters/#quiz", desc: "Hear a letter, pick its sound" } },
     { id: "twisters", path: "twisters/", title: "Tongue twisters", pl: "Łamańce językowe", desc: "Practise the tricky sounds",
-      learn: { page: "twisters", path: "twisters/" },
-      quiz: { page: "twisters-quiz", path: "twisters-quiz/", desc: "Fill in the missing word" } },
+      learn: { page: "twisters", path: "twisters/" } },
     { id: "cases", path: "cases/", title: "Cases", pl: "Przypadki", desc: "Rules for noun and adjective endings",
       learn: { page: "cases", path: "cases/" },
       quiz: { page: "cases-quiz", path: "cases-quiz/", desc: "Pick the right ending" } },
@@ -57,7 +60,7 @@
   function where(page) {
     for (var i = 0; i < PAGES.length; i++) {
       var p = PAGES[i];
-      var here = VARIANTS.map(function (v) { return v[0]; }).filter(function (k) { return p[k].page === page; });
+      var here = VARIANTS.map(function (v) { return v[0]; }).filter(function (k) { return p[k] && p[k].page === page; });
       if (!here.length) continue;
       var hashed = here.filter(function (k) { return hashOf(p[k]) && hashOf(p[k]) === location.hash; });
       var plain = here.filter(function (k) { return !hashOf(p[k]); });
@@ -98,7 +101,8 @@
     nav.appendChild(all);
 
     // Learn / Quiz: the same switch on every topic page, right under the menu.
-    if (!at) return;
+    // A topic with only a learn page (Tongue twisters) or a single page (Practice) gets no switch.
+    if (!at || at.topic.single || !at.topic.quiz) return;
     var modes = el("nav", "pl-tabs pl-variants");
     modes.setAttribute("aria-label", at.topic.title + ": learn or quiz");
     var links = {};
@@ -137,9 +141,10 @@
       alt.lang = "pl";
       tile.appendChild(alt);
       tile.appendChild(el("span", "pl-hub-desc", ready ? p.desc : "Coming soon"));
-      if (ready) {
+      if (ready && !p.single) {
         var modes = el("span", "pl-hub-modes");
         VARIANTS.forEach(function (v) {
+          if (!p[v[0]]) return;
           var a = el("a", "pl-hub-mode", v[1]);
           a.href = root + p[v[0]].path;
           if (p[v[0]].desc) a.title = p[v[0]].desc;

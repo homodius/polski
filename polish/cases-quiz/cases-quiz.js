@@ -154,6 +154,8 @@
   }
 
   next.addEventListener("click", function () { advance(); });
+  var undo = A.undoButton(function () { undoAnswer(); });
+  options.insertAdjacentElement("afterend", undo);
   retry.addEventListener("click", function () { start(round.wrong.map(function (x) { return byId[x]; }), "missed"); });
   again.addEventListener("click", function () { startFiltered(); });
 
@@ -257,6 +259,7 @@
     });
     feedback.hidden = true;
     next.hidden = true;
+    undo.hidden = true;
     renderStats();
   }
 
@@ -295,7 +298,23 @@
     renderStats();
     next.hidden = false;
     next.textContent = round.index + 1 < round.deck.length ? "Next" : "See results";
+    undo.hidden = right;
     next.focus();
+  }
+
+  // A mistap: forget the mistake and ask the same card again with the same options.
+  function undoAnswer() {
+    if (!round || !round.answered || undo.hidden) return;
+    round.wrong.pop();
+    A.forgetMistake(D.mistakeKey(round.item));
+    round.answered = false;
+    renderForm(round.item, false);
+    renderCue(round.item, false);
+    feedback.hidden = true;
+    next.hidden = true;
+    undo.hidden = true;
+    renderStats();
+    A.reopenOptions(options);
   }
 
   function showFeedback(item, right, missed) {
@@ -328,7 +347,7 @@
       note.appendChild(document.createTextNode("The stem changes here: "));
       var a = el("span", null, item.stemChanged);
       a.lang = "pl";
-      var b = el("span", null, item.stem + "-");
+      var b = el("span", null, (item.dataStem || item.stem) + "-");
       b.lang = "pl";
       b.dataset.say = item.form;
       note.appendChild(a);
@@ -380,6 +399,9 @@
     if (n >= 1 && n <= options.children.length && !round.answered) {
       e.preventDefault();
       options.children[n - 1].click();
+    } else if (A.isUndoKey(e) && round.answered && !undo.hidden) {
+      e.preventDefault();
+      undoAnswer();
     } else if (e.key === "Enter" && round.answered && e.target !== next) {
       e.preventDefault();
       advance();

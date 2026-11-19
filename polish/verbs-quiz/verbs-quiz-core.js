@@ -27,9 +27,20 @@
 
   // Splits one cell into what is shown (before + after) and the ending to pick. A compound
   // future asks for the ending of będę: "będ_ robić"; with a gender, the ending of the l-form:
-  // "będę robi_".
-  function split(cell) {
+  // "będę robi_". A conditional is cut before the ł / l of the past form ("robi_" + "łabym"), so
+  // the printed part doesn't already say masculine or feminine; that needs `verb` and `tenseId`.
+  function split(cell, verb, tenseId) {
     var f = cell.form;
+    if (tenseId === "conditional" && verb && verb.forms.past && cell.gender) {
+      var plural = cell.person.charAt(1) === "p";
+      var l = (verb.forms.past[plural ? "3p" : "3s"] || {})[cell.gender];
+      var whole = f.stem + f.end;
+      if (l && whole.indexOf(l.stem) === 0) {
+        var pos = f.text.lastIndexOf(whole);
+        if (pos === -1) pos = 0;
+        return { before: f.text.slice(0, pos) + l.stem, ending: whole.slice(l.stem.length), after: f.text.slice(pos + whole.length), slot: "" };
+      }
+    }
     if (f.aux && cell.gender === "inf") {
       var auxWord = f.aux.stem + f.aux.end;
       return { before: f.aux.stem, ending: f.aux.end, after: f.text.slice(auxWord.length), slot: "aux" };
@@ -53,7 +64,7 @@
       data.tenses.forEach(function (tense) {
         if (tenseIds && tenseIds.length && tenseIds.indexOf(tense.id) === -1) return;
         data.cells(verb, tense.id).forEach(function (cell) {
-          var s = split(cell);
+          var s = split(cell, verb, tense.id);
           out.push({
             key: questionKey(verb, tense.id, cell), verb: verb, tense: tense, person: cell.person, gender: cell.gender,
             pronoun: pronoun(data, tense.id, cell.person, cell.gender),
@@ -117,7 +128,7 @@
   // The verb's own forms of one tense, split like the questions: [{person, gender, ending, slot, text}].
   function rows(data, verb, tenseId) {
     return data.cells(verb, tenseId).map(function (cell) {
-      var s = split(cell);
+      var s = split(cell, verb, tenseId);
       return { person: cell.person, gender: cell.gender, ending: s.ending, slot: s.slot, text: cell.form.text };
     });
   }

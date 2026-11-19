@@ -1,0 +1,9 @@
+.pr-topics { display: flex; flex-wrap: wrap; gap: .4rem .9rem; margin: .5rem 0; }
+.pr-topics label { display: inline-flex; align-items: center; gap: .35rem; cursor: pointer; }
+.pr-actions { display: flex; gap: .6rem; justify-content: flex-end; flex-wrap: wrap; margin-top: .8rem; }
+.pr-cue .pr-big { font-size: 1.6rem; font-weight: 600; }
+.pr-totals { margin-top: 1.2rem; }
+.pr-totals summary { cursor: pointer; font-weight: 600; }
+.pr-totals table { border-collapse: collapse; margin: .6rem 0; width: 100%; max-width: 32rem; }
+.pr-totals th, .pr-totals td { text-align: left; padding: .25rem .5rem; border-bottom: 1px solid rgba(127,127,127,.25); }
+.pr-totals td:not(:first-child), .pr-totals th:not(:first-child) { text-align: right; }

@@ -166,6 +166,8 @@
   var rate = R ? R.control(document, "letter", LETTERS[0].id) : null;
   if (rate) rate.classList.add("lq-rate");
   [cardLabel, front, rate, options, feedback, next].forEach(function (n) { if (n) card.appendChild(n); });
+  var undo = P.undoButton(function () { undoAnswer(); });
+  options.insertAdjacentElement("afterend", undo);
 
   var done = el("div", "pl-card");
   done.hidden = true;
@@ -178,7 +180,7 @@
   var again = button("pl-link", "Start again", function () { start(round.ids, round.set); });
   [doneTitle, doneText, retryMissed, again].forEach(function (n) { done.appendChild(n); });
 
-  var keys = el("p", "pl-muted pl-small pl-keys", "Keyboard: 1 to 4 pick an answer, Enter goes to the next card, S says the example.");
+  var keys = el("p", "pl-muted pl-small pl-keys", "Keyboard: 1 to 4 pick an answer, Enter goes to the next card, U takes back a wrong tap, S says the example once you've answered.");
 
   [filters, picker, stats, card, done, keys].forEach(function (n) { root.appendChild(n); });
 
@@ -245,9 +247,20 @@
     stats.textContent = "";
   }
 
+  // A letter said just as in English is described with itself ("b as in bed"), so its card gives
+  // the answer away. The "all" round leaves those out; a set you rated or picked keeps them.
+  function saysItself(item) {
+    return item.sound.toLowerCase().indexOf(item.text.toLowerCase() + " as in ") === 0;
+  }
+  var PLAIN = LETTERS.filter(saysItself);
+  var plainNote = el("p", "pl-muted pl-small", "Letters said as in English (" +
+    PLAIN.map(function (item) { return item.text; }).join(", ") + ") are left out of this round. Rate or pick them to practise them.");
+  plainNote.hidden = true;
+  filters.insertAdjacentElement("afterend", plainNote);
+
   // Starts a round on one of the menu's sets: all, or with ratings hard, normal, easy, manual.
   function startSet(name) {
-    if (name === "all") return start(null, "all");
+    if (name === "all") return start(LETTERS.filter(function (item) { return !saysItself(item); }).map(id), "all");
     var ids = R ? R.filter(LETTERS, "letter", name, id).map(id) : [];
     if (ids.length) return start(ids, name);
     card.hidden = true;
@@ -279,6 +292,7 @@
     var deck = Q.buildDeck(LETTERS, ids, Math.random);
     if (!deck.length) return;
     round = { set: label || "custom", ids: ids, deck: deck, index: 0, right: 0, wrong: [], answered: false };
+    plainNote.hidden = label !== "all" || !PLAIN.length;
     picker.hidden = true;
     done.hidden = true;
     card.hidden = false;
@@ -303,6 +317,7 @@
     });
     feedback.hidden = true;
     next.hidden = true;
+    undo.hidden = true;
     renderStats();
   }
 
@@ -334,7 +349,22 @@
     renderStats();
     next.hidden = false;
     next.textContent = round.index + 1 < round.deck.length ? "Next" : "See results";
+    undo.hidden = right;
     next.focus();
+  }
+
+  // A mistap: forget the mistake and ask the same card again with the same options.
+  function undoAnswer() {
+    if (!round || !round.answered || undo.hidden) return;
+    round.wrong.pop();
+    P.forgetMistake(Q.mistakeKey(round.item));
+    round.answered = false;
+    front.dataset.say = "off";
+    feedback.hidden = true;
+    next.hidden = true;
+    undo.hidden = true;
+    renderStats();
+    P.reopenOptions(options);
   }
 
   function showFeedback(item, right, missed) {
@@ -428,10 +458,13 @@
     if (n >= 1 && n <= options.children.length && !round.answered) {
       e.preventDefault();
       options.children[n - 1].click();
+    } else if (P.isUndoKey(e) && round.answered && !undo.hidden) {
+      e.preventDefault();
+      undoAnswer();
     } else if (e.key === "Enter" && round.answered && e.target !== next) {
       e.preventDefault();
       advance();
-    } else if ((e.key === "s" || e.key === "S") && firstExample(round.item)) {
+    } else if ((e.key === "s" || e.key === "S") && round.answered && firstExample(round.item)) {
       say(firstExample(round.item)[0]);
     }
   });

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="Endless Polish practice: cards from words, cases, verb tenses and ten/ta/to, mixed, with Skip." />
+    <meta name="theme-color" content="#212529" />
+    <meta name="referrer" content="no-referrer" />
+    <title>Polish Practice</title>
+    <link rel="icon" type="image/png" href="../../assets/img/icon.png" />
+    <link rel="manifest" href="../manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="../app/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Polski" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link href="../polish.css" rel="stylesheet" />
+    <link href="../letters-quiz.css" rel="stylesheet" />
+    <link href="../cases-quiz/cases-quiz.css" rel="stylesheet" />
+    <link href="practice.css" rel="stylesheet" />
+    <script src="../../js/site-nav.js" defer></script>
+    <script src="../../js/share.js" defer></script>
+    <script src="../backup.js" defer></script>
+    <script src="../app.js" defer></script>
+</head>
+
+<body>
+    <main class="pl-app cq pr">
+        <h1 class="pl-title">Practice<span class="pl-title-alt"><span lang="pl" tabindex="0" title="Tap to hear">Ćwiczenia</span><span lang="uk"> · Практика</span></span></h1>
+        <nav class="pl-tabs pl-section-nav" data-page="practice"></nav>
+        <p class="pl-muted pl-small">Cards from every topic, mixed, with no end. Answer, or press Skip if you don't
+            want this card; skips are counted in your statistics.</p>
+
+        <div id="pr-topics" class="pr-topics" role="group" aria-label="Topics to mix"></div>
+        <p id="pr-stats" class="pl-muted pl-small" aria-live="polite"></p>
+
+        <div id="pr-card" class="pl-card lq-card cq-card" aria-live="polite">
+            <p id="pr-topic" class="pl-card-topic"></p>
+            <div id="pr-who"></div>
+            <p id="pr-word" class="cq-word"></p>
+            <div id="pr-context"></div>
+            <p id="pr-cue" class="cq-cue pr-cue"></p>
+            <div id="pr-options" class="lq-options"></div>
+            <div id="pr-feedback" class="pl-card-back lq-feedback" hidden></div>
+            <div class="pr-actions">
+                <button id="pr-skip" class="pl-button" type="button">Skip</button>
+                <button id="pr-next" class="pl-button pl-primary" type="button" hidden>Next</button>
+            </div>
+        </div>
+
+        <details class="pr-totals">
+            <summary>My statistics</summary>
+            <div id="pr-totals"></div>
+            <button id="pr-reset" class="pl-link" type="button">Reset practice statistics</button>
+        </details>
+
+        <p class="pl-muted pl-small pl-keys">Keyboard: 1 to 4 pick an answer, K skips the card, Enter goes to the next card.</p>
+    </main>
+
+    <script src="../ratings.js"></script>
+    <script src="../pages.js"></script>
+    <script src="../common.js"></script>
+    <script src="../quiz.js"></script>
+    <script src="../vocab.js"></script>
+    <script src="../cases/cases-data.js"></script>
+    <script src="../cases-quiz/cases-drill.js"></script>
+    <script src="../cases-quiz/drill.js"></script>
+    <script src="../verbs/verbs-data.js"></script>
+    <script src="../verbs/verbs-translate.js"></script>
+    <script src="../verbs-quiz/verbs-quiz-core.js"></script>
+    <script src="../demonstratives/demonstratives-data.js"></script>
+    <script src="../demonstratives/demonstratives-core.js"></script>
+    <script src="practice-stats.js"></script>
+    <script src="practice.js"></script>
+</body>
+
+</html>

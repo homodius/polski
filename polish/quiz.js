@@ -63,12 +63,35 @@
     return String(text || "").toLowerCase().replace(/\([^)]*\)/g, " ").replace(/[^\p{L}\p{N}]+/gu, " ").trim();
   }
 
-  // True when two words mean the same, in English or in Ukrainian, so neither can be a wrong
-  // answer for the other (jak się masz / co słychać, cześć / hej).
+  // Senses too general to make two words synonyms ("na" and "dla" both give "for").
+  var WEAK_SENSES = ["in", "at", "on", "for", "from", "about", "after", "with", "and", "but", "too",
+    "more", "please", "you", "this", "it", "oneself", "well"];
+
+  // The separate senses of a meaning: "buddy, friend (informal)" gives "buddy" and "friend";
+  // "to speak, to say" gives "speak" and "say"; "when pigs fly, i.e. never" gives "when pigs fly"
+  // and "never". Brackets don't count.
+  function senses(text) {
+    return String(text || "").replace(/\([^)]*\)/g, " ").split(/[,;:\/!?.…]|\bi\.?e\.?\b/)
+      .map(function (part) { return plainMeaning(part).replace(/^(to|be) /, ""); })
+      .filter(function (s) { return s && WEAK_SENSES.indexOf(s) === -1; });
+  }
+
+  function shareSense(a, b) {
+    var bs = senses(b);
+    return senses(a).some(function (s) { return bs.indexOf(s) !== -1; });
+  }
+
+  // True when two words mean the same or nearly the same, so neither can be a wrong answer for
+  // the other: the same meaning in English or Ukrainian (jak się masz / co słychać), one sense
+  // in common in either language (kumpel "buddy, friend" / kolega "friend, colleague"), or a
+  // shared "near" group in vocab.js for near-synonyms worded differently (guzik prawda / ale schemat).
   function sameMeaning(a, b) {
     if (a.pl === b.pl) return true;
     var aEn = plainMeaning(a.en), bEn = plainMeaning(b.en), aUk = plainMeaning(a.uk), bUk = plainMeaning(b.uk);
-    return (aEn && aEn === bEn) || (aUk && aUk === bUk);
+    if ((aEn && aEn === bEn) || (aUk && aUk === bUk)) return true;
+    if (shareSense(a.en, b.en) || shareSense(a.uk, b.uk)) return true;
+    var bNear = b.near || [];
+    return (a.near || []).some(function (g) { return bNear.indexOf(g) !== -1; });
   }
 
   function isPhrase(word) { return /\s/.test(word.pl.trim()); }
@@ -116,7 +139,7 @@
 
   var api = { OPTION_COUNT: OPTION_COUNT, HISTORY_LIMIT: HISTORY_LIMIT, shuffle: shuffle, sameSound: sameSound, mistakeKey: mistakeKey,
     buildDeck: buildDeck, makeOptions: makeOptions,
-    plainMeaning: plainMeaning, sameMeaning: sameMeaning, makeMeaningOptions: makeMeaningOptions, addMistake: addMistake, addResult: addResult };
+    plainMeaning: plainMeaning, senses: senses, sameMeaning: sameMeaning, makeMeaningOptions: makeMeaningOptions, addMistake: addMistake, addResult: addResult };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   root.PolishQuiz = api;
 })(typeof window !== "undefined" ? window : globalThis);

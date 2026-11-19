@@ -46,6 +46,26 @@
 
   var deck = [], at = 0, scores = [], answered = false;
 
+  // A typo or a Check pressed too early: take the answer back and keep typing. It's practice.
+  var editBtn = PP.undoButton(function () { reopen(); });
+  editBtn.textContent = "Mistyped? Edit my answer";
+  editBtn.title = "Take back this answer and change it";
+  nextBtn.insertAdjacentElement("afterend", editBtn);
+
+  function reopen() {
+    if (!answered || editBtn.hidden) return;
+    scores.pop();
+    answered = false;
+    mine.readOnly = false;
+    feedback.hidden = true;
+    feedback.innerHTML = "";
+    nextBtn.hidden = true;
+    editBtn.hidden = true;
+    checkBtn.hidden = false;
+    skipBtn.hidden = false;
+    mine.focus({ preventScroll: true });
+  }
+
   function pool() {
     return setSel.value === "mine" ? ALL.filter(function (s) { return s.mine; }) : ALL;
   }
@@ -74,6 +94,7 @@
     feedback.hidden = true;
     feedback.innerHTML = "";
     nextBtn.hidden = true;
+    editBtn.hidden = true;
     checkBtn.hidden = false;
     skipBtn.hidden = false;
     mine.focus({ preventScroll: true });
@@ -148,6 +169,7 @@
 
     nextBtn.hidden = false;
     nextBtn.textContent = at + 1 < deck.length ? "Next" : "See the result";
+    editBtn.hidden = !attempt;
     nextBtn.focus({ preventScroll: true });
   }
 
