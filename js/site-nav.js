@@ -36,6 +36,24 @@
             (current ? ' aria-current="page"' : '') + '>' + esc(item.title) + '</a>';
     }
 
+    // A Polish topic with a Learn and a Quiz page lists both under it while you are on that topic,
+    // so the switch is reachable from the menu at any scroll position. Two variants on one page
+    // (letters/ and letters/#quiz) are told apart by the #hash.
+    function variantLinks(item) {
+        var vs = item.variants || [];
+        if (vs.length < 2) return '';
+        var onTopic = vs.some(function (v) { return pathOf(home + v.href) === here; });
+        if (!onTopic) return '';
+        function hashOf(h) { var i = h.indexOf('#'); return i === -1 ? '' : h.slice(i); }
+        var hashed = vs.some(function (v) { return pathOf(home + v.href) === here && hashOf(v.href) && hashOf(v.href) === location.hash; });
+        return '<ul class="site-nav-variants">' + vs.map(function (v) {
+            var h = hashOf(v.href);
+            var current = pathOf(home + v.href) === here && (hashed ? h === location.hash : !h);
+            return '<li><a class="site-nav-link" href="' + esc(home + v.href) + '"' +
+                (current ? ' aria-current="page"' : '') + '>' + esc(v.title) + '</a></li>';
+        }).join('') + '</ul>';
+    }
+
     function section(item, i) {
         var kids = item.children || [];
         if (!kids.length) return '<li data-section="' + i + '">' + link(item) + '</li>';
@@ -49,7 +67,7 @@
             ' aria-label="' + esc(item.title) + ' pages"><svg viewBox="0 0 24 24" aria-hidden="true">' +
             '<path d="m6 9 6 6 6-6"/></svg></button></div>' +
             '<ul class="site-nav-sub" id="' + id + '">' +
-            kids.map(function (k) { return '<li>' + link(k) + '</li>'; }).join('') +
+            kids.map(function (k) { return '<li>' + link(k) + variantLinks(k) + '</li>'; }).join('') +
             '</ul></li>';
     }
 
@@ -64,7 +82,10 @@
         '.site-nav,.site-nav-panel{--sn-bg:#fff;--sn-fg:#212529;--sn-muted:#6c757d;--sn-hover:#e6f6f5;--sn-line:#dee2e6;' +
         'font:600 14px/1.2 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;box-sizing:border-box;text-align:left}' +
         '@media (prefers-color-scheme:dark){.site-nav,.site-nav-panel{--sn-bg:#212529;--sn-fg:#e9ecef;--sn-muted:#9aa1a8;--sn-hover:#17403e;--sn-line:#3a4046}}' +
-        '.site-nav{position:relative;z-index:1050;display:flex;gap:.5rem;align-items:center;padding:.5rem 1rem;background:#00a29a}' +
+        // The bar stays at the top of the window while the page scrolls, so Menu, Back and Home are
+        // always one tap away; links to #sections stop below it instead of under it.
+        'html{scroll-padding-top:var(--site-nav-h,0px)}' +
+        '.site-nav{position:-webkit-sticky;position:sticky;top:0;z-index:1050;box-shadow:0 1px 4px rgba(0,0,0,.18);display:flex;gap:.5rem;align-items:center;padding:.5rem 1rem;background:#00a29a}' +
         '.site-nav>a,.site-nav-burger{color:#fff!important;text-decoration:none!important;padding:.35rem .75rem;border-radius:999px;' +
         'background:rgba(255,255,255,.15);border:0;font:inherit;cursor:pointer;display:inline-flex;align-items:center;gap:.4rem}' +
         '.site-nav>a:hover,.site-nav>a:focus-visible,.site-nav-burger:hover,.site-nav-burger:focus-visible,' +
@@ -102,6 +123,10 @@
         '.site-nav-group.open .site-nav-expand svg{transform:rotate(180deg)}' +
         '.site-nav-sub{display:none;margin:0 0 .2rem .75rem!important;padding-left:.5rem!important;border-left:2px solid var(--sn-line)}' +
         '.site-nav-group.open .site-nav-sub{display:block}' +
+        '.site-nav-variants{display:flex;gap:.25rem;margin:0 0 .2rem .75rem!important}' +
+        '.site-nav-variants li{flex:1}' +
+        '.site-nav-variants .site-nav-link{padding:.35rem .5rem!important;text-align:center;font-size:13px;border:1px solid var(--sn-line)}' +
+        '.site-nav-variants .site-nav-link[aria-current]{box-shadow:none;border-color:#00a29a;background:var(--sn-hover)}' +
         '.site-nav-sub .site-nav-link,.site-nav-toc .site-nav-link{font-weight:500;padding:.5rem .75rem}' +
         '.site-nav-toc,.site-nav-page{border-top:1px solid var(--sn-line);margin-top:.4rem;padding-top:.4rem}' +
         '.site-nav-toc:empty,.site-nav-page:empty{display:none}' +
@@ -183,6 +208,17 @@
             li.appendChild(copy);
             toc.appendChild(li);
         });
+        // A long page (or one scrolled down) also gets a way straight back to its top.
+        if (window.scrollY > 0 || document.documentElement.scrollHeight > 2 * window.innerHeight) {
+            var top = document.createElement('li');
+            var up = document.createElement('button');
+            up.type = 'button';
+            up.className = 'site-nav-link';
+            up.textContent = '\u2191 Top of page';
+            up.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+            top.appendChild(up);
+            toc.insertBefore(top, toc.firstChild);
+        }
     }
 
     var wantPinned = false;
@@ -285,7 +321,9 @@
             .map(function (p) {
                 var variants = [p.learn, p.quiz].filter(Boolean)
                     .map(function (v) { return item.href + v.path; });
-                return { title: p.title, href: item.href + p.path, also: variants };
+                var both = p.learn && p.quiz && !p.single ?
+                    [{ title: 'Learn', href: item.href + p.learn.path }, { title: 'Quiz', href: item.href + p.quiz.path }] : [];
+                return { title: p.title, href: item.href + p.path, also: variants, variants: both };
             });
         var li = menu.querySelector('[data-section="' + polishIndex + '"]');
         if (li) li.outerHTML = section(item, polishIndex);
@@ -326,8 +364,14 @@
     document.body.insertBefore(nav, document.body.firstChild);
     document.body.appendChild(backdrop);
     document.body.appendChild(panel);
-    // Pages with their own fixed header (the CV) use this to sit below the bar.
-    root.style.setProperty('--site-nav-h', nav.offsetHeight + 'px');
+    // Pages with their own fixed or sticky header (the CV, the games) use this to sit below the bar.
+    // The bar can wrap to two lines on a narrow screen, so keep it up to date.
+    function setBarHeight() { root.style.setProperty('--site-nav-h', nav.offsetHeight + 'px'); }
+    setBarHeight();
+    if (window.ResizeObserver) new ResizeObserver(setBarHeight).observe(nav);
+    else window.addEventListener('resize', setBarHeight);
+    // letters/ and letters/#quiz are one page: mark the right Learn / Quiz entry after a hash change.
+    window.addEventListener('hashchange', fillPolish);
     applyPin();
     // Pages that build their contents after loading (cases, this & that) fill "On this page" later.
     if (pinned()) window.addEventListener('load', fillToc);
