@@ -1,6 +1,7 @@
-// Verb tenses quiz page. Each card shows a verb, a person and a tense, and the form with its
-// ending left blank ("ja · past · masc.: robi___"); pick the ending from four. The answer then
-// fills in, with the whole form to hear. Questions come from the verb tables in
+// Verb tenses quiz page. Each card shows a verb, a person and a tense, and an example sentence
+// with the form's ending left blank ("Dziecko zrobi___ to." / "The child would do it."); pick
+// the ending from four. The answer then fills in, with the whole sentence to hear. Sentences
+// come from ../verbs/verbs-examples.js; without them the card shows the bare form ("ono zrobi___"). Questions come from the verb tables in
 // ../verbs/verbs-data.js, logic from verbs-quiz-core.js, audio from ../common.js
 // (PolishAudio / PolishPage), and Hard / Normal / Easy sets from PolishRatings (kind "verb", id = infinitive).
 //
@@ -184,7 +185,7 @@
   [doneTitle, doneText, doneList, retryMissed, again].forEach(function (n) { done.appendChild(n); });
 
   var keys = el("p", "pl-muted pl-small pl-keys",
-    "Keyboard: 1 to 4 pick an ending, Enter goes to the next card, U takes back a wrong tap, S says the whole form.");
+    "Keyboard: 1 to 4 pick an ending, Enter goes to the next card, U takes back a wrong tap, S says the whole sentence.");
 
   [filters, stats, card, done, keys].forEach(function (n) { root.appendChild(n); });
 
@@ -238,8 +239,10 @@
     whoBox.textContent = "";
     if (P && P.whoLine) whoBox.appendChild(P.whoLine(Q.who(q)));
     contextBox.textContent = "";
+    // Who is talking (Mówi Ewa:), unless the sentence already names who it's about (Dziecko ...).
     var ctx = Q.context(q);
-    if (ctx && P && P.contextLine) contextBox.appendChild(P.contextLine(ctx[0], ctx[1]));
+    var ex = exampleOf(q);
+    if (ctx && !(ex && ex.named) && P && P.contextLine) contextBox.appendChild(P.contextLine(ctx[0], ctx[1]));
 
     verbLine.textContent = "";
     verbLine.appendChild(polish("strong", null, q.verb.inf));
@@ -278,15 +281,27 @@
     return span;
   }
 
-  // The form being built: pronoun, the part that stays, then a gap, or once answered the
-  // chosen ending in colour, then the rest (" robić", " się").
+  // The example sentence for a question, worked out once: see PolishVerbsQuiz.example.
+  function exampleOf(q) {
+    if (!("example" in q)) q.example = Q.example ? Q.example(q) : null;
+    return q.example;
+  }
+
+  // The sentence being built: the words before, the part that stays, then a gap, or once
+  // answered the chosen ending in colour, then the rest (" się", " to."). Without an example
+  // sentence, the pronoun and the bare form ("ja robi___").
   function renderWord(q, chosen) {
     word.textContent = "";
-    // Half a word says nothing; once answered, a tap says the whole form.
+    var ex = exampleOf(q);
+    word.classList.toggle("vq-sentence", !!ex);
+    // Half a word says nothing; once answered, a tap says the whole sentence.
     word.dataset.say = chosen === null ? "off" : spoken(q);
-    if (q.pronoun) word.appendChild(el("span", "vq-pronoun", q.pronoun + " "));
+    var before = ex ? ex.before : q.before;
+    var cut = before.lastIndexOf(" ") + 1;
+    if (ex && cut) word.appendChild(document.createTextNode(before.slice(0, cut)));
+    else if (!ex && q.pronoun) word.appendChild(el("span", "vq-pronoun", q.pronoun + " "));
     // The stem and its ending stay on one line, so the ending never looks like a separate word.
-    var stem = el("span", "vq-stem", q.before);
+    var stem = el("span", "vq-stem", ex ? before.slice(cut) : q.before);
     if (chosen === null) {
       stem.appendChild(el("span", "vq-gap", "___"));
     } else {
@@ -294,16 +309,19 @@
       stem.appendChild(end);
     }
     word.appendChild(stem);
-    if (q.after) word.appendChild(document.createTextNode(q.after));
+    var after = ex ? ex.after : q.after;
+    if (after) word.appendChild(document.createTextNode(after));
   }
 
-  // What this exact form means: "they would read · вони читали б", not just "to read".
+  // What the sentence means: "The child would do it. · Дитина зробила б це.", or without a
+  // sentence what this exact form means: "they would read · вони читали б".
   function renderMeaning(q) {
     meaningLine.textContent = "";
     var T = window.PolishVerbsTranslate;
     var gender = q.gender === "inf" ? null : q.gender;
-    var enText = T ? T.en(q.verb, q.tense.id, q.person, gender) : "";
-    var ukText = T ? T.uk(q.verb, q.tense.id, q.person, gender) : "";
+    var ex = exampleOf(q);
+    var enText = ex ? ex.en : T ? T.en(q.verb, q.tense.id, q.person, gender) : "";
+    var ukText = ex ? ex.uk : T ? T.uk(q.verb, q.tense.id, q.person, gender) : "";
     if (enText) meaningLine.appendChild(el("span", "vq-meaning-en", enText));
     if (ukText) {
       // The separator sits inside the Ukrainian span, so hiding Ukrainian hides it too.
@@ -320,7 +338,8 @@
   }
 
   function spoken(q) {
-    return (q.pronoun ? q.pronoun + " " : "") + q.text;
+    var ex = exampleOf(q);
+    return ex ? ex.pl : (q.pronoun ? q.pronoun + " " : "") + q.text;
   }
 
   function answer(chosen, ending) {
@@ -366,18 +385,34 @@
     audio().reopenOptions(options);
   }
 
-  // The whole form, with the ending coloured, and a button to hear it.
+  // The whole sentence (or form), with the ending coloured, and a button to hear it.
   function formLine(q) {
     var p = polish("p", "vq-answer");
     p.dataset.say = spoken(q);
+    var ex = exampleOf(q);
     var text = el("span");
-    if (q.pronoun) text.appendChild(el("span", "vq-pronoun", q.pronoun + " "));
-    text.appendChild(document.createTextNode(q.before));
+    if (!ex && q.pronoun) text.appendChild(el("span", "vq-pronoun", q.pronoun + " "));
+    text.appendChild(document.createTextNode(ex ? ex.before : q.before));
     text.appendChild(el("span", "vq-ending", q.ending));
-    if (q.after) text.appendChild(document.createTextNode(q.after));
+    var after = ex ? ex.after : q.after;
+    if (after) text.appendChild(document.createTextNode(after));
     p.appendChild(text);
     p.appendChild(speakButton(spoken(q)));
     return p;
+  }
+
+  // The conditional said the other common way, with by moved forward: "Dziecko by to zrobiło."
+  function altLine(q) {
+    var ex = exampleOf(q);
+    if (!ex || !ex.alt) return null;
+    var box = el("div", "vq-alt");
+    box.appendChild(el("p", "pl-muted pl-small", "Also said, with by moved forward:"));
+    var p = polish("p", "vq-answer vq-alt-pl");
+    p.dataset.say = ex.alt;
+    p.appendChild(el("span", null, ex.alt));
+    p.appendChild(speakButton(ex.alt));
+    box.appendChild(p);
+    return box;
   }
 
   function showFeedback(q, right, missed) {
@@ -387,6 +422,8 @@
     var P = audio();
     if (!right && P && P.ruleBox) feedback.appendChild(P.ruleBox(Q.rule(DATA, q)));
     feedback.appendChild(formLine(q));
+    var alt = altLine(q);
+    if (alt) feedback.appendChild(alt);
     if (missed) {
       feedback.appendChild(el("p", "pl-muted pl-small",
         "Missed " + missed + (missed === 1 ? " time" : " times") + " so far."));

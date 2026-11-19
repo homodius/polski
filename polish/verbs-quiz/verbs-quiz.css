@@ -7,6 +7,31 @@
   overflow-wrap: anywhere;
 }
 
+/* An example sentence with the gap is longer than a bare form, so a little smaller. */
+.vq-card .pl-card-front.vq-sentence {
+  font-size: 1.9rem;
+  overflow-wrap: normal;
+}
+
+@media (max-width: 480px) {
+  .vq-card .pl-card-front.vq-sentence {
+    font-size: 1.5rem;
+  }
+}
+
+.vq-alt {
+  margin: 4px 0 8px;
+}
+
+.vq-alt > p {
+  margin: 0;
+}
+
+.vq-alt .vq-alt-pl {
+  font-size: 1.1rem;
+  margin: 2px 0 0;
+}
+
 .vq-verb {
   display: flex;
   align-items: center;

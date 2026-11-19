@@ -88,15 +88,20 @@
   var VERB_QS = VQ && VDATA ? VQ.buildQuestions(VDATA, VDATA.verbs, null) : [];
   if (VERB_QS.length) TOPICS.push({ id: "verbs", title: "Tenses", make: function () {
     var q = pickOne(VERB_QS);
-    var ctx = VQ.context(q);
+    // The form in an example sentence ("Dziecko zrobi___ to."), from ../verbs/verbs-examples.js.
+    var ex = VQ.example ? VQ.example(q) : null;
+    var ctx = ex && ex.named ? null : VQ.context(q);
+    var cut = ex ? ex.before.lastIndexOf(" ") + 1 : 0;
     return {
       key: q.key, label: "Tenses · " + (q.tense.name || q.tense.id), who: VQ.who(q),
-      word: [q.verb.inf, q.verb.en, q.verb.uk], ctx: ctx, before: "", stem: q.before, after: q.after,
+      word: [q.verb.inf, q.verb.en, q.verb.uk], ctx: ctx,
+      before: ex ? ex.before.slice(0, cut) : "", stem: ex ? ex.before.slice(cut) : q.before, after: ex ? ex.after : q.after,
+      en: ex ? ex.en : null, enUk: ex ? ex.uk : null,
       options: VQ.makeOptions(q, VERB_QS, Math.random).map(function (e) {
         return { value: e, text: e || "∅", lang: "pl" };
       }),
       right: function (v) { return v === q.ending; },
-      ending: q.ending, say: q.text, sentence: q.text,
+      ending: q.ending, say: ex ? ex.pl : q.text, sentence: ex ? ex.pl : q.text,
       rule: VQ.rule(VDATA, q), link: ["How to form this tense", "../verbs/"],
     };
   } });

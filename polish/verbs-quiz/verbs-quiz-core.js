@@ -279,9 +279,24 @@
     return CONTEXT[q.person + ":" + g] || null;
   }
 
+  // ---------- Example sentence ----------
+
+  // The form at work in a whole sentence, from ../verbs/verbs-examples.js: {before, after, pl, en,
+  // uk, alt}. before + ending + after is the sentence ("Dziecko zrobi" + "łoby" + " to."), so a
+  // card can leave the same gap in it; alt is the conditional with "by" moved forward. null when
+  // the examples aren't loaded or the verb has none.
+  function example(q) {
+    var E = root.PolishVerbExamples ||
+      (typeof require === "function" ? (function () { try { return require("../verbs/verbs-examples.js"); } catch (e) { return null; } })() : null);
+    var e = E ? E.example(q.verb, q.tense.id, q.person, q.gender, q.text) : null;
+    if (!e) return null;
+    var start = e.pre ? e.pre + q.before : q.before.charAt(0).toUpperCase() + q.before.slice(1);
+    return { before: start, after: q.after + e.post, pl: e.pl, en: e.en, uk: e.uk, alt: e.alt || "", named: !!e.pre };
+  }
+
   var api = { OPTION_COUNT: OPTION_COUNT, shuffle: shuffle, pronoun: pronoun, split: split, questionKey: questionKey,
     buildQuestions: buildQuestions, makeOptions: makeOptions, buildRound: buildRound, addMistake: addMistake,
-    rule: rule, who: who, context: context };
+    rule: rule, who: who, context: context, example: example };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   root.PolishVerbsQuiz = api;
 })(typeof window !== "undefined" ? window : globalThis);
