@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="Practise Polish phrases for real situations: see what you want to say and pick the Polish, or hear a phrase and pick its meaning." />
+    <meta name="theme-color" content="#212529" />
+    <!-- Google Translate's speech audio refuses requests that name another site as referrer. -->
+    <meta name="referrer" content="no-referrer" />
+    <title>Polish Phrases Quiz</title>
+    <link rel="icon" type="image/png" href="../../assets/img/icon.png" />
+    <link rel="manifest" href="../manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="../app/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Polski" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link href="../polish.css" rel="stylesheet" />
+    <link href="../letters-quiz.css" rel="stylesheet" />
+    <link href="../cases-quiz/cases-quiz.css" rel="stylesheet" />
+    <link href="phrases-quiz.css" rel="stylesheet" />
+    <script src="../../js/site-nav.js" defer></script>
+    <script src="../../js/share.js" defer></script>
+    <script src="../backup.js" defer></script>
+    <script src="../app.js" defer></script>
+</head>
+
+<body>
+    <main class="pl-app cq phq">
+        <h1 class="pl-title">Phrases quiz<span class="pl-title-alt"><span lang="pl" tabindex="0" title="Tap to hear">Zwroty</span><span lang="uk"> · Фрази</span></span></h1>
+        <nav class="pl-tabs pl-section-nav" data-page="phrases-quiz"></nav>
+        <p class="pl-muted pl-small">Each card is something you want to say in a real situation: pick the Polish that says it.
+            Or switch to Polish first and pick what a phrase means. <a href="../phrases/">All the phrases</a></p>
+
+        <div class="pl-filters">
+            <select id="phq-setting" class="pl-input" aria-label="Which setting"></select>
+            <select id="phq-mode" class="pl-input" aria-label="Which way">
+                <option value="say">English → Polish</option>
+                <option value="mean">Polish → English</option>
+            </select>
+            <select id="phq-set" class="pl-input" aria-label="Practice set: phrases you marked hard, normal or easy, or picked by hand"></select>
+        </div>
+        <p id="phq-stats" class="pl-muted pl-small"></p>
+
+        <div id="phq-card" class="pl-card lq-card cq-card" aria-live="polite" hidden>
+            <p id="phq-label" class="pl-card-topic"></p>
+            <div id="phq-rate"></div>
+            <div id="phq-prompt" class="phq-prompt"></div>
+            <div id="phq-options" class="lq-options phq-options"></div>
+            <div id="phq-feedback" class="pl-card-back lq-feedback" hidden></div>
+            <button id="phq-next" class="pl-button pl-primary" type="button" hidden>Next</button>
+        </div>
+
+        <div id="phq-done" class="pl-card" hidden>
+            <p class="pl-card-front" lang="pl">Gotowe!</p>
+            <p id="phq-done-text" class="pl-muted"></p>
+            <button id="phq-retry" class="pl-button pl-primary" type="button">Practise the ones I missed</button>
+            <button id="phq-again" class="pl-link" type="button">New round</button>
+        </div>
+
+        <p class="pl-muted pl-small pl-keys">Keyboard: 1 to 4 pick an answer, Enter goes to the next card, U takes back a wrong tap,
+            S says the phrase.</p>
+    </main>
+
+    <script src="../ratings.js"></script>
+    <script src="../pages.js"></script>
+    <script src="../common.js"></script>
+    <script src="../quiz.js"></script>
+    <script src="../phrases/phrases-data.js"></script>
+    <script src="phrases-quiz.js"></script>
+</body>
+
+</html>

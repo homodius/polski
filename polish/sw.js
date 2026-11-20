@@ -5,11 +5,11 @@
 // Strategy: network first, so new versions of the site show up as soon as there is a
 // connection; whatever was fetched is kept, and used when the phone is offline or the
 // network is too slow. On install it also caches every Polish page and the files they load.
-var CACHE = "polish-app-v2";
+var CACHE = "polish-app-v3";
 var PAGES = [
   "./", "words/", "flashcards/", "letters/", "twisters/", "practice/",
   "cases/", "cases-quiz/", "verbs/", "verbs-quiz/", "demonstratives/",
-  "demonstratives-quiz/", "translate/", "translate-quiz/"
+  "demonstratives-quiz/", "translate/", "translate-quiz/", "phrases/", "phrases-quiz/"
 ];
 var EXTRA = [
   "manifest.webmanifest", "app/apple-touch-icon.png", "app/icon-192.png", "app/icon-512.png"

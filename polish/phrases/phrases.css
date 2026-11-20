@@ -1,0 +1,100 @@
+/* Phrases page (phrases-page.js). Uses the word rows from polish.css. */
+.ph-toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 8px;
+}
+
+.ph-toc a {
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--pl-accent);
+  text-decoration: none;
+  background: var(--pl-card);
+  border: 1px solid var(--pl-border);
+  border-radius: 999px;
+}
+
+.ph-toc a:hover,
+.ph-toc a:focus-visible {
+  background: var(--pl-accent-soft);
+}
+
+.ph-section {
+  margin-top: 28px;
+}
+
+.ph-section h2 {
+  font-size: 1.35rem;
+  margin: 0 0 2px;
+  padding-top: 12px;
+}
+
+.ph-section-alt {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--pl-muted);
+}
+
+.ph-section-alt [lang="pl"] {
+  color: var(--pl-accent);
+}
+
+.ph-tip {
+  margin: 8px 0;
+  padding: 8px 12px;
+  border-left: 3px solid var(--pl-accent);
+  background: var(--pl-accent-soft);
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+.ph-tip p {
+  margin: 2px 0;
+}
+
+.ph-row .pl-word-pl {
+  overflow-wrap: anywhere;
+}
+
+/* The Polish row is a 3-column grid: speak buttons, text, rating. */
+.ph-row {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+}
+
+.ph-words-title {
+  margin: 16px 0 6px;
+  font-size: 1rem;
+}
+
+.ph-words {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.ph-words li {
+  padding: 4px 10px;
+  background: var(--pl-card);
+  border: 1px solid var(--pl-border);
+  border-radius: 999px;
+  font-size: 0.9rem;
+}
+
+.ph-words [lang="pl"] {
+  font-weight: 700;
+}
+
+.ph-quiz-link {
+  margin: 10px 0 0;
+}
+
+.ph-app a {
+  color: var(--pl-accent);
+}

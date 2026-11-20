@@ -1,5 +1,5 @@
 // Endless mixed Practice: one card after another from every quiz topic (word meanings, case
-// endings, verb endings, ten / ta / to), never a "round" end. Each card can be answered or
+// endings, verb endings, ten / ta / to, phrases), never a "round" end. Each card can be answered or
 // skipped; both are counted in polish.practice (practice-stats.js). Wrong answers also count in
 // polish.mistakes under the same keys as the topic's own quiz, and show the rule in EN + UK.
 //
@@ -121,6 +121,25 @@
       right: function (v) { return v === it.answer; },
       ending: DM.inSentence(it, it.answer), say: DM.sentence(it), sentence: DM.sentence(it), en: it.en, enUk: it.uk,
       rule: DM.rule(it, CASE_INFO), link: ["ten, ta, to in every case", "../demonstratives/"],
+    };
+  } });
+
+  // Phrases for real situations (../phrases/phrases-data.js): hear a phrase, pick what it means.
+  var PHRASES = window.POLISH_PHRASE_LIST || [];
+  function stop(text) { return /[.?!]$/.test(text) ? "" : "."; }
+  if (PHRASES.length > 4) TOPICS.push({ id: "phrases", title: "Phrases", make: function () {
+    var p = pickOne(PHRASES);
+    var why = p.why || {};
+    return {
+      key: "phrase:" + p.pl, label: "Phrases · " + p.setting.title + " · what does it mean?", big: p.pl, say: p.pl,
+      options: Q.makeMeaningOptions(p, PHRASES, Math.random).map(function (o) {
+        return { value: o.pl, text: o.en, uk: o.uk };
+      }),
+      right: function (v) { return v === p.pl; },
+      answer: p.pl, sentence: p.pl,
+      rule: { en: "{" + p.pl + "} means **" + p.en + "**" + stop(p.en) + " " + (why.en || ""),
+        uk: p.uk ? "{" + p.pl + "} означає **" + p.uk + "**" + stop(p.uk) + " " + (why.uk || "") : "" },
+      link: ["All phrases: " + p.setting.title, "../phrases/#" + p.setting.id],
     };
   } });
 

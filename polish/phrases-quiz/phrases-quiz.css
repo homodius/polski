@@ -1,0 +1,62 @@
+/* Phrases quiz. Builds on letters-quiz.css and cases-quiz/cases-quiz.css. */
+.phq .phq-prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin: 8px 0 0;
+}
+
+.phq .phq-say {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.phq .phq-say-pl {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.phq .phq-say-pl .pl-speaks {
+  flex-direction: row;
+}
+
+.phq .phq-sub {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* Answers are whole sentences: one per row, text on the left. */
+.phq .phq-options {
+  grid-template-columns: 1fr;
+}
+
+.phq .phq-options .cq-option-text {
+  text-align: left;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.phq .lq-verdict {
+  text-align: center;
+}
+
+.phq .phq-others-box {
+  margin: 8px 0;
+  text-align: left;
+}
+
+.phq .phq-others {
+  margin: 6px 0 0;
+  padding-left: 18px;
+}
+
+.phq .phq-others li {
+  margin: 2px 0;
+}
