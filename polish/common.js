@@ -16,6 +16,8 @@
   // ---------- Listening ----------
 
   var canSpeak = "speechSynthesis" in window;
+  var ios = /iPhone|iPad|iPod/.test(navigator.userAgent) ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 
   var VOICE_KEY = "polish.voice";
   // The Voice menu, shown only when the device has more than one Polish voice. A page can place
@@ -231,14 +233,17 @@
     playing = src;
   }
 
-  function playWithElement(url, text, explicit, rate) {
+  function playWithElement(url, text, explicit, rate, onFail) {
     if (!player) player = new Audio();
     player.pause();
     player.src = url;
     player.volume = 1;
     player.playbackRate = rate || 1;
     var p = player.play();
-    if (p && p.catch) p.catch(function () { speakWithVoice(text, explicit, false, rate); });
+    if (p && p.catch) p.catch(function () {
+      if (onFail) onFail();
+      else speakWithVoice(text, explicit, false, rate);
+    });
   }
 
   function playRecording(url, text, explicit) {
@@ -275,8 +280,10 @@
   // `explicit` is true when the visitor pressed a button; `rate` below 1 says it slower.
   function sayGenerated(text, explicit, rate) {
     keepAudioAwake();
-    // Only needed when Web Audio is missing: starting a second audio stream can itself click.
-    if (!audioCtx) unlockPlayer();
+    // Unlock the audio player inside the tap when the spoken-audio fallback may be needed: no
+    // Web Audio, an iPhone, or no Polish voice known yet. Elsewhere it stays off, because
+    // starting a second audio stream can itself click.
+    if (!audioCtx || ios || !canSpeak || !polishVoices().length) unlockPlayer();
     sayWithoutRecording(text, explicit, rate);
   }
 
@@ -301,17 +308,26 @@
   }
 
 
-  // The device's built-in text-to-speech, used when no recording exists. If the device has no
-  // Polish voice at all, a speaker tap opens the listen link instead of staying silent.
+  // The device's built-in text-to-speech, used when no recording exists. When the device has
+  // no Polish voice, or its speech engine stays silent (iPhone Home Screen apps and some iOS
+  // versions list no voices at all), the same Google Translate speech audio Firefox uses is
+  // played instead; only if that fails too does a speaker tap open the listen link.
+  function speakWithAudio(text, explicit, rate) {
+    playWithElement(speechAudioUrl(text), text, explicit, rate, function () {
+      if (explicit) window.open(listenLink(text).href, "_blank", "noopener");
+    });
+  }
+
   function speakWithVoice(text, explicit, retried, rate) {
     if (!canSpeak) {
-      if (explicit) window.open(listenLink(text).href, "_blank", "noopener");
+      speakWithAudio(text, explicit, rate);
       return;
     }
     var voice = pickVoice();
-    if (!voice && !speechSynthesis.getVoices().length && !retried) {
+    if (!voice && !speechSynthesis.getVoices().length && !retried && !ios) {
       // Desktop browsers load their voice list late. Speaking before it arrives makes them
       // read the Polish with their default (often English) voice, so wait for it once.
+      // (Not on iPhone: there speech must start inside the tap, and an empty list stays empty.)
       var done = false;
       var retry = function () {
         if (done) return;
@@ -323,10 +339,10 @@
       setTimeout(retry, 3000);
       return;
     }
-    if (!voice && speechSynthesis.getVoices().length) {
+    if (!voice) {
       // No Polish voice on this device: any other voice would read the word in its own
-      // language. Open the listen link instead.
-      if (explicit) window.open(listenLink(text).href, "_blank", "noopener");
+      // language, so play the speech audio instead.
+      speakWithAudio(text, explicit, rate);
       return;
     }
     keepAudioAwake();
@@ -343,6 +359,22 @@
     if (speechSynthesis.paused) speechSynthesis.resume();
     // Chrome can garbage-collect an utterance mid-speech; keep a reference until it ends.
     lastUtterance = u;
+    // Some phones accept the utterance and then say nothing. If speech hasn't started soon,
+    // or fails, play the speech audio instead.
+    var started = false;
+    var fellBack = false;
+    function fallBack() {
+      if (started || fellBack || lastUtterance !== u) return;
+      fellBack = true;
+      speechSynthesis.cancel();
+      speakWithAudio(text, explicit, rate);
+    }
+    u.onstart = function () { started = true; };
+    u.onerror = function (e) {
+      if (e && (e.error === "interrupted" || e.error === "canceled")) return;
+      fallBack();
+    };
+    setTimeout(fallBack, 2000);
     speechSynthesis.speak(u);
   }
 
